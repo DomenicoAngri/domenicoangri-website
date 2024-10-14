@@ -71,10 +71,6 @@ coverage/
 .jest/
 .vscode-test/
 
-# npm and yarn integrity
-package-lock.json
-yarn.lock
-
 # OS generated files
 .DS_Store
 
