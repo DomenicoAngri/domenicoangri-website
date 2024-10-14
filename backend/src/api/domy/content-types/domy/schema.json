@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "domies",
+  "info": {
+    "singularName": "domy",
+    "pluralName": "domies",
+    "displayName": "domy"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "domyTest": {
+      "type": "text"
+    }
+  }
+}
