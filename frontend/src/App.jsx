@@ -9,17 +9,13 @@ function App() {
     const [bodyText, setBodyText] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const apiToken = import.meta.env.VITE_TOKEN_FOR_STRAPI;
+    const url = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         const fetchBodyText = async () => {
             try {
                 // API from strapi
-                const response = await axios.get("http://localhost:1337/api/body-test-for-react", {
-                    headers: {
-                        Authorization: `Bearer ${apiToken}`,
-                    },
-                });
+                const response = await axios.get(`${url}/homepage`);
                 setBodyText(response.data.data);
             } catch (err) {
                 setError(err);
@@ -42,7 +38,7 @@ function App() {
             <h1>Domenico Angri Website</h1>
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>{bodyText.bodyTextHomePage}</p>
+                <p>{bodyText.body}</p>
             </div>
             <p className="read-the-docs">Developed with love by DA</p>
         </>
