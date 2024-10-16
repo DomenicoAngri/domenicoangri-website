@@ -1,5 +1,38 @@
 import type { Struct, Schema } from "@strapi/strapi";
 
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
+    collectionName: "homepages";
+    info: {
+        singularName: "homepage";
+        pluralName: "homepages";
+        displayName: "homepage";
+    };
+    options: {
+        draftAndPublish: true;
+    };
+    pluginOptions: {
+        i18n: {
+            localized: true;
+        };
+    };
+    attributes: {
+        body: Schema.Attribute.String &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.DefaultTo<"This is a default value for body homepage!">;
+        createdAt: Schema.Attribute.DateTime;
+        updatedAt: Schema.Attribute.DateTime;
+        publishedAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        locale: Schema.Attribute.String;
+        localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
+    };
+}
+
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     collectionName: "files";
     info: {
@@ -393,50 +426,6 @@ export interface PluginUsersPermissionsUser extends Struct.CollectionTypeSchema 
     };
 }
 
-export interface ApiBodyTestForReactBodyTestForReact extends Struct.SingleTypeSchema {
-    collectionName: "body_test_for_reacts";
-    info: {
-        singularName: "body-test-for-react";
-        pluralName: "body-test-for-reacts";
-        displayName: "Body test for react";
-    };
-    options: {
-        draftAndPublish: true;
-    };
-    attributes: {
-        bodyTextHomePage: Schema.Attribute.Text;
-        createdAt: Schema.Attribute.DateTime;
-        updatedAt: Schema.Attribute.DateTime;
-        publishedAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        locale: Schema.Attribute.String;
-        localizations: Schema.Attribute.Relation<"oneToMany", "api::body-test-for-react.body-test-for-react">;
-    };
-}
-
-export interface ApiDomyDomy extends Struct.SingleTypeSchema {
-    collectionName: "domies";
-    info: {
-        singularName: "domy";
-        pluralName: "domies";
-        displayName: "domy";
-    };
-    options: {
-        draftAndPublish: true;
-    };
-    attributes: {
-        domyTest: Schema.Attribute.Text;
-        createdAt: Schema.Attribute.DateTime;
-        updatedAt: Schema.Attribute.DateTime;
-        publishedAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        locale: Schema.Attribute.String;
-        localizations: Schema.Attribute.Relation<"oneToMany", "api::domy.domy">;
-    };
-}
-
 export interface AdminPermission extends Struct.CollectionTypeSchema {
     collectionName: "admin_permissions";
     info: {
@@ -767,6 +756,7 @@ export interface AdminTransferTokenPermission extends Struct.CollectionTypeSchem
 declare module "@strapi/strapi" {
     export module Public {
         export interface ContentTypeSchemas {
+            "api::homepage.homepage": ApiHomepageHomepage;
             "plugin::upload.file": PluginUploadFile;
             "plugin::upload.folder": PluginUploadFolder;
             "plugin::i18n.locale": PluginI18NLocale;
@@ -777,8 +767,6 @@ declare module "@strapi/strapi" {
             "plugin::users-permissions.permission": PluginUsersPermissionsPermission;
             "plugin::users-permissions.role": PluginUsersPermissionsRole;
             "plugin::users-permissions.user": PluginUsersPermissionsUser;
-            "api::body-test-for-react.body-test-for-react": ApiBodyTestForReactBodyTestForReact;
-            "api::domy.domy": ApiDomyDomy;
             "admin::permission": AdminPermission;
             "admin::user": AdminUser;
             "admin::role": AdminRole;
