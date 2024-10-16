@@ -60,7 +60,6 @@ build/
 # Logs and error reporting
 logs/
 *.log
-yarn.lock
 .pnpm-debug.log
 
 # ESLint cache
@@ -83,8 +82,6 @@ coverage/
 .babelrc.json
 .npmrc
 .yarnrc
-.prettierrc
-.prettierignore
 .editorconfig
 .eslintignore
 .stylelintrc
