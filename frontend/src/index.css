@@ -12,6 +12,7 @@
 @layer base {
     html {
         @apply font-custom antialiased;
+        scroll-behavior: smooth;
     }
 
     body {
@@ -27,7 +28,7 @@
     }
 
     a {
-        @apply no-underline;
+        @apply no-underline text-secondary;
     }
 
     p {
