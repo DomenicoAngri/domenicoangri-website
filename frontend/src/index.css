@@ -2,32 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* da vedere se serve
-.inconsolata-da {
-}*/
-
-:root {
-    font-family: "Inconsolata", monospace;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
-
-    line-height: 1.5;
-
-    /*color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;*/
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+@font-face {
+    font-family: "inconsolata";
+    src: url("./assets/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") format("truetype");
+    font-weight: "400";
+    font-style: "normal";
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
+@layer base {
+    html {
+        @apply font-custom antialiased;
     }
+
+    body {
+        @apply min-h-screen flex flex-col bg-primary text-secondary text-xl;
+    }
+
+    h1 {
+        @apply font-bold text-3xl;
+    }
+
+    h2 {
+        @apply font-bold text-2xl;
+    }
+
+    a {
+        @apply no-underline;
+    }
+
+    p {
+        @apply mb-4;
+    }
+}
+
+@layer components {
 }
