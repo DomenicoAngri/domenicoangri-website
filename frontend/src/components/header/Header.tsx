@@ -1,30 +1,19 @@
-// src/components/Header.tsx
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import "./Header.css";
 
 const Header = () => {
-    const [darkMode, setDarkMode] = useState(false);
-
-    const toggleDarkMode = () => {
-        // Logica dark
-        setDarkMode(!darkMode);
-    };
-
     return (
-        <header className={`fixed top-0 left-0 w-full bg-gray-900 text-white py-6 shadow-md z-50 bg-opacity-85 backdrop-blur-sm`}>
-            <nav className="container mx-auto flex justify-between items-center px-4">
-                <div className="text-xl font-bold">Domenico Angri</div>
-                <div className="flex items-center space-x-6">
-                    <a href="#" className="hover:text-gray-200">
-                        About
-                    </a>
-                    <a href="#" className="hover:text-gray-200">
-                        CV
-                    </a>
-                    <button onClick={toggleDarkMode}>
-                        <FontAwesomeIcon icon={faMoon} />
-                    </button>
+        <header className="header">
+            <nav className="nav">
+                <div className="title">Domenico Angri</div>
+                <div className="subNav">
+                    <div className="subNavElement">About</div>
+                    <div className="subNavElement">Exp</div>
+                    <div className="subNavElement">
+                        <FontAwesomeIcon icon={faLanguage} />
+                    </div>
                 </div>
             </nav>
         </header>

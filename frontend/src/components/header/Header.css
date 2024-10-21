@@ -1,0 +1,19 @@
+.header {
+    @apply fixed top-0 left-0 w-full py-6 z-10 bg-opacity-50 backdrop-blur-sm;
+}
+
+.nav {
+    @apply container mx-auto flex justify-between items-center px-4;
+}
+
+.title {
+    @apply text-xl font-bold;
+}
+
+.subNav {
+    @apply flex justify-around items-center;
+}
+
+.subNavElement {
+    @apply mx-2;
+}
