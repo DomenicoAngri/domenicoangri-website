@@ -28,7 +28,7 @@
     }
 
     a {
-        @apply no-underline text-secondary;
+        @apply no-underline;
     }
 
     p {
