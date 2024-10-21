@@ -4,9 +4,6 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
 const Header = () => {
-    // TODO: gestione dei tipi ts
-    // TODO: capire bug di about
-
     const [activeSection, setActiveSection] = useState("");
 
     useEffect(() => {
@@ -18,9 +15,7 @@ const Header = () => {
             if (section1 && section2) {
                 if (section1.offsetTop <= scrollPosition && section1.offsetTop + section1.offsetHeight > scrollPosition) {
                     setActiveSection("section1");
-                }
-                // Controlla se sei nella sezione Experiences
-                else if (section2.offsetTop <= scrollPosition && section2.offsetTop + section2.offsetHeight > scrollPosition) {
+                } else if (section2.offsetTop <= scrollPosition && section2.offsetTop + section2.offsetHeight > scrollPosition) {
                     setActiveSection("section2");
                 } else {
                     setActiveSection("");
@@ -36,9 +31,8 @@ const Header = () => {
     }, []);
 
     const handleScrollToSectionClick = (event) => {
+        event.preventDefault();
         const sectionId = event.currentTarget.getAttribute("href")?.substring(1);
-
-        console.log(sectionId);
 
         if (sectionId) {
             scrollToSection(sectionId);
@@ -48,11 +42,11 @@ const Header = () => {
     const scrollToSection = (sectionId: string) => {
         const header = document.getElementById("header");
         const section = document.getElementById(sectionId);
-        console.log(section);
 
         if (header && section) {
             const headerHeight = header.offsetHeight;
             const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
+
             window.scrollTo({
                 top: sectionPosition - headerHeight,
             });
