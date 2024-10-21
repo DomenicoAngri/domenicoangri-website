@@ -5,7 +5,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["inconsolata", "sans-serif"],
+                custom: ["inconsolata"],
             },
             colors: {
                 primary: "#283a4f",
