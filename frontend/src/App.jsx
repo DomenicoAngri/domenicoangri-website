@@ -6,19 +6,20 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+import env from "./config/environmentVariables";
+
 import Header from "./components/header/Header";
 
 function App() {
     const [count, setCount] = useState(0);
-    const language = useSelector((state) => state.language.language);
+    const language = useSelector((state) => state.language.currentLanguage);
     const [bodyText, setBodyText] = useState([]);
-    const url = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         const fetchBodyText = async () => {
             try {
                 // API from strapi
-                const response = await axios.get(`${url}/homepage?locale=${language}`);
+                const response = await axios.get(`${env.apiUrl}/homepage?locale=${language}`);
                 setBodyText(response.data.data);
             } catch (err) {
                 console.error(err);

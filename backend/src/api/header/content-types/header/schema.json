@@ -27,11 +27,6 @@
       "required": true,
       "maxLength": 15,
       "minLength": 1
-    },
-    "menu_links": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::menu-link.menu-link"
     }
   }
 }

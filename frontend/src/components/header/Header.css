@@ -3,7 +3,7 @@
 }
 
 .nav {
-    @apply container mx-auto flex justify-between items-center px-4;
+    @apply container mx-auto flex justify-between items-center px-5;
 }
 
 .title {
@@ -15,7 +15,7 @@
 }
 
 .subNavElement {
-    @apply mx-3;
+    @apply mx-4;
 }
 
 .activeSection {

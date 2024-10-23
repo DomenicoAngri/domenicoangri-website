@@ -3,188 +3,114 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setLanguage } from "../../redux/reducers/language.reducer";
 import axios from "axios";
+import env from "../../config/environmentVariables";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { faLanguage, faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
+import { Dispatch } from "redux";
+
+/**
+ * TODO
+ * - Definire cosa fare se non dovesse comunicare col BE --> Stato di loading se le risposte sono null.
+ */
 
 const Header = () => {
     // Dispatch action to reducer.
-    const dispatch = useDispatch();
+    const dispatch: Dispatch = useDispatch();
 
     // Get the current language global state.
-    const language = useSelector((state: RootState) => state.language.language);
+    const language: string = useSelector((state: RootState) => state.language.currentLanguage);
 
     // Get url for API from env file.
-    const url = import.meta.env.VITE_API_URL;
+    const apiUrl: string = env.apiUrl;
 
     // State for header response from strapi.
     const [headerResponse, setHeaderResponse] = useState();
 
-    // Name of sections.
-    // const [sections, setSections] = useState<String[]>([]);
-    const [loading, setLoading] = useState(true);
+    // State for menu.
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    // useEffect(() => {
-    //     const fetchResponseHeader = async () => {
-    //         try {
-    //             // API from strapi.
-    //             const response = await axios.get(`${url}/header?populate=*&locale=${language}`);
-    //             setHeaderResponse(response.data.data);
-    //         } catch (err) {
-    //             console.error(err);
-    //         } finally {
-    //             setLoading(false);
-    //             console.log("finally catch nel primo useEffect");
-    //             console.log("response del primo", headerResponse);
-    //         }
-    //     };
-    //     fetchResponseHeader();
-    // }, []);
+    // For loading page - TODO-REMOVE
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchResponseHeader = async () => {
             try {
                 // API from strapi.
-                const response = await axios.get(`${url}/header?populate=*&locale=${language}`);
-                setHeaderResponse(response.data.data);
-                console.log("response della lingua 1", headerResponse);
+                const response = await axios.get(`${apiUrl}/header?populate=*&locale=${language}`);
+
+                if (response) {
+                    setHeaderResponse(response.data.data);
+                }
             } catch (err) {
                 console.error(err);
             } finally {
                 setLoading(false);
-                console.log("finally catch in quello della lingua");
-                console.log("response della lingua catch 2", headerResponse);
             }
         };
         fetchResponseHeader();
     }, [language]);
 
-    // Usefull for to select current header section.
-    // const [activeSection, setActiveSection] = useState("");
-
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         // const section1 = document.getElementById("section1");
-    //         // const section2 = document.getElementById("section2");
-    //         const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-    //         // if (section1 && section2) {
-    //         //     if (section1.offsetTop <= scrollPosition && section1.offsetTop + section1.offsetHeight > scrollPosition) {
-    //         //         setActiveSection("section1");
-    //         //     } else if (section2.offsetTop <= scrollPosition && section2.offsetTop + section2.offsetHeight > scrollPosition) {
-    //         //         setActiveSection("section2");
-    //         //     } else {
-    //         //         setActiveSection("");
-    //         //     }
-    //         // }
-
-    //         sections.forEach((section, index) => {
-    //             const selectedSection = document.getElementById(section);
-
-    //             if (
-    //                 selectedSection &&
-    //                 selectedSection.offsetTop <= scrollPosition &&
-    //                 selectedSection.offsetTop + selectedSection.offsetHeight > scrollPosition
-    //             ) {
-    //                 setActiveSection(selectedSection);
-    //             }
-    //         });
-    //     };
-
-    //     window.addEventListener("scroll", handleScroll);
-
-    //     return () => {
-    //         window.removeEventListener("scroll", handleScroll);
-    //     };
-    // }, [sections]);
-
-    // useEffect(() => {
-    //     // Aggiungi le sezioni qui, quando `headerResponse` cambia.
-    //     if (headerResponse && headerResponse.menu_links) {
-    //         const newSections = headerResponse.menu_links.map((menuLink) => menuLink.idSection);
-    //         setSections(newSections);
-    //     }
-    // }, [headerResponse]);
-
-    // const handleScrollToSectionClick = (event) => {
-    //     event.preventDefault();
-    //     const sectionId = event.currentTarget.getAttribute("href")?.substring(1);
-
-    //     if (sectionId) {
-    //         scrollToSection(sectionId);
-    //     }
-    // };
-
-    // const scrollToSection = (sectionId: string) => {
-    //     const header = document.getElementById("header");
-    //     const section = document.getElementById(sectionId);
-
-    //     if (header && section) {
-    //         const headerHeight = header.offsetHeight;
-    //         const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-
-    //         window.scrollTo({
-    //             top: sectionPosition - headerHeight,
-    //         });
-    //     }
-    // };
-
-    // const addSection = (section) => {
-    //     setSections((prevItems) => [...prevItems, section]);
-    //     console.log("Section ---> ", section);
-    // };
-
     if (loading) {
-        return <div>Caricamento...</div>; // Mostra un messaggio di caricamento
+        return <div>Caricamento...</div>;
     }
 
+    const toggleMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+        document.body.style.overflow = isMenuOpen ? "auto" : "hidden";
+    };
+
+    const TestComp = () => (
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-100 transition-opacity duration-300 z-100 ${
+                isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
+        >
+            <div
+                className={`flex flex-col items-center justify-center h-full transition-transform duration-300 transform ${
+                    isMenuOpen ? "translate-x-0" : "translate-x-full"
+                }`}
+            >
+                <button className="text-white text-2xl mb-4" onClick={toggleMenu}>
+                    Chiudi Menu
+                </button>
+                <ul className="text-white">
+                    <li className="py-4">Voce 1</li>
+                    <li className="py-4">Voce 2</li>
+                    <li className="py-4">Voce 3</li>
+                </ul>
+            </div>
+        </div>
+    );
+
     return (
-        <header id="header" className="header">
-            <nav className="nav">
-                <div className="title">
-                    <a href="#">{headerResponse.siteTitle}</a>
-                </div>
-                <div className="subNav">
-                    {headerResponse.menu_links.map((menuLink) => (
-                        <div key={menuLink.idSection} className="subNavElement">
-                            <a
-                                href={`#${menuLink.idSection}`}
-                                // className={activeSection === `#${menuLink.idSection}` ? "activeSection" : "inactiveSection"}
-                                // onClick={handleScrollToSectionClick}
-                            >
-                                {menuLink.sectionTitle}
-                            </a>
+        <>
+            {isMenuOpen ? (
+                <TestComp />
+            ) : (
+                <header id="header" className="header">
+                    <nav className="nav">
+                        <div className="title">
+                            <a href="#">{headerResponse.siteTitle}</a>
                         </div>
-                    ))}
-                    {/* <div className="subNavElement">
-                        <a
-                            href="#section1"
-                            className={activeSection === "section1" ? "activeSection" : "inactiveSection"}
-                            onClick={handleScrollToSectionClick}
-                        >
-                            About
-                        </a>
-                    </div>
-                    <div className="subNavElement">
-                        <a
-                            href="#section2"
-                            className={activeSection === "section2" ? "activeSection" : "inactiveSection"}
-                            onClick={handleScrollToSectionClick}
-                        >
-                            Exp
-                        </a>
-                    </div> */}
-                    <div
-                        className="subNavElement"
-                        onClick={() => {
-                            language === "en" ? dispatch(setLanguage("it")) : dispatch(setLanguage("en"));
-                        }}
-                    >
-                        <FontAwesomeIcon icon={faLanguage} />
-                    </div>
-                </div>
-            </nav>
-        </header>
+                        <div className="subNav">
+                            <div
+                                className="subNavElement"
+                                onClick={() => {
+                                    language === "en" ? dispatch(setLanguage("it")) : dispatch(setLanguage("en"));
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faLanguage} />
+                            </div>
+                            <div className="subNavElement" onClick={toggleMenu}>
+                                <FontAwesomeIcon icon={isMenuOpen ? faX : faBars} />
+                            </div>
+                        </div>
+                    </nav>
+                </header>
+            )}
+        </>
     );
 };
 

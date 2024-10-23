@@ -422,7 +422,6 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
                 maxLength: 15;
             }> &
             Schema.Attribute.DefaultTo<"Domenico Angri">;
-        menu_links: Schema.Attribute.Relation<"oneToMany", "api::menu-link.menu-link">;
         createdAt: Schema.Attribute.DateTime;
         updatedAt: Schema.Attribute.DateTime;
         publishedAt: Schema.Attribute.DateTime;

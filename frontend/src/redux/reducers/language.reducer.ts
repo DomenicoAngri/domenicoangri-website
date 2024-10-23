@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     // Default language.
-    language: "en",
+    currentLanguage: "en",
 };
 
 const languageReducer = createSlice({
@@ -10,7 +10,7 @@ const languageReducer = createSlice({
     initialState,
     reducers: {
         setLanguage: (state, action) => {
-            state.language = action.payload;
+            state.currentLanguage = action.payload;
         },
     },
 });
