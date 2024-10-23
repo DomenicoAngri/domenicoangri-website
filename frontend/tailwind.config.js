@@ -8,7 +8,10 @@ export default {
                 custom: ["inconsolata"],
             },
             colors: {
-                primary: "#283a4f",
+                // primary: "#1c3a51",
+                //primary: "#283a4f",
+                //primary: "#353f4c",
+                primary: "#21374a",
                 secondary: "#d9e2ec",
                 accent: "#e78392",
             },

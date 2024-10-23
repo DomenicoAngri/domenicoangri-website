@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "homepages",
+  "collectionName": "headers",
   "info": {
-    "singularName": "homepage",
-    "pluralName": "homepages",
-    "displayName": "homepage",
+    "singularName": "header",
+    "pluralName": "headers",
+    "displayName": "Header",
     "description": ""
   },
   "options": {
@@ -16,14 +16,17 @@
     }
   },
   "attributes": {
-    "body": {
+    "siteTitle": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "type": "string",
-      "default": "This is a default value for body homepage!"
+      "default": "Domenico Angri",
+      "required": true,
+      "maxLength": 15,
+      "minLength": 1
     }
   }
 }
