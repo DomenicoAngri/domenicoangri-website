@@ -1,7 +1,7 @@
 {
     "name": "domenico-angri-persona-website-frontend",
     "private": true,
-    "version": "0.3.5",
+    "version": "0.4.0",
     "type": "module",
     "description": "Domenico Angri personal website frontend with react + vite + tailwind.",
     "scripts": {
@@ -16,9 +16,12 @@
         "@fortawesome/free-regular-svg-icons": "^6.6.0",
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
         "@fortawesome/react-fontawesome": "^0.2.2",
+        "@reduxjs/toolkit": "^2.3.0",
         "axios": "^1.7.7",
         "react": "^18.3.1",
-        "react-dom": "^18.3.1"
+        "react-dom": "^18.3.1",
+        "react-redux": "^9.1.2",
+        "redux": "^5.0.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.11.1",

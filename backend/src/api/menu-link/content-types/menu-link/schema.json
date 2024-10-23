@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "menu_links",
+  "info": {
+    "singularName": "menu-link",
+    "pluralName": "menu-links",
+    "displayName": "menuLink",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "idSection": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "uid",
+      "required": true,
+      "minLength": 2
+    },
+    "sectionTitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "default": "Section",
+      "required": true,
+      "maxLength": 15,
+      "minLength": 2
+    }
+  }
+}

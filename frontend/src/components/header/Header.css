@@ -3,7 +3,7 @@
 }
 
 .nav {
-    @apply container mx-auto flex justify-between items-center px-4;
+    @apply container mx-auto flex justify-between items-center px-5;
 }
 
 .title {
@@ -15,15 +15,15 @@
 }
 
 .subNavElement {
-    @apply mx-3;
+    @apply mx-4;
 }
 
 .activeSection {
-    @apply transition-colors duration-500 ease-in-out text-accent font-semibold;
+    @apply transition-colors duration-700 ease-in-out text-accent font-semibold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .inactiveSection {
-    @apply transition-colors duration-500 ease-in-out text-secondary font-normal;
+    @apply transition-colors duration-700 ease-in-out text-secondary font-normal;
     text-shadow: none;
 }
