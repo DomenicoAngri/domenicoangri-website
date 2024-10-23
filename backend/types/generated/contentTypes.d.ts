@@ -1,38 +1,5 @@
 import type { Struct, Schema } from "@strapi/strapi";
 
-export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
-    collectionName: "homepages";
-    info: {
-        singularName: "homepage";
-        pluralName: "homepages";
-        displayName: "homepage";
-    };
-    options: {
-        draftAndPublish: true;
-    };
-    pluginOptions: {
-        i18n: {
-            localized: true;
-        };
-    };
-    attributes: {
-        body: Schema.Attribute.String &
-            Schema.Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true;
-                };
-            }> &
-            Schema.Attribute.DefaultTo<"This is a default value for body homepage!">;
-        createdAt: Schema.Attribute.DateTime;
-        updatedAt: Schema.Attribute.DateTime;
-        publishedAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        locale: Schema.Attribute.String;
-        localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
-    };
-}
-
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     collectionName: "files";
     info: {
@@ -426,6 +393,129 @@ export interface PluginUsersPermissionsUser extends Struct.CollectionTypeSchema 
     };
 }
 
+export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
+    collectionName: "headers";
+    info: {
+        singularName: "header";
+        pluralName: "headers";
+        displayName: "Header";
+        description: "";
+    };
+    options: {
+        draftAndPublish: true;
+    };
+    pluginOptions: {
+        i18n: {
+            localized: true;
+        };
+    };
+    attributes: {
+        siteTitle: Schema.Attribute.String &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 1;
+                maxLength: 15;
+            }> &
+            Schema.Attribute.DefaultTo<"Domenico Angri">;
+        menu_links: Schema.Attribute.Relation<"oneToMany", "api::menu-link.menu-link">;
+        createdAt: Schema.Attribute.DateTime;
+        updatedAt: Schema.Attribute.DateTime;
+        publishedAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        locale: Schema.Attribute.String;
+        localizations: Schema.Attribute.Relation<"oneToMany", "api::header.header">;
+    };
+}
+
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
+    collectionName: "homepages";
+    info: {
+        singularName: "homepage";
+        pluralName: "homepages";
+        displayName: "homepage";
+        description: "";
+    };
+    options: {
+        draftAndPublish: true;
+    };
+    pluginOptions: {
+        i18n: {
+            localized: true;
+        };
+    };
+    attributes: {
+        body: Schema.Attribute.String &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.DefaultTo<"This is a default value for body homepage!">;
+        createdAt: Schema.Attribute.DateTime;
+        updatedAt: Schema.Attribute.DateTime;
+        publishedAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        locale: Schema.Attribute.String;
+        localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
+    };
+}
+
+export interface ApiMenuLinkMenuLink extends Struct.CollectionTypeSchema {
+    collectionName: "menu_links";
+    info: {
+        singularName: "menu-link";
+        pluralName: "menu-links";
+        displayName: "menuLink";
+        description: "";
+    };
+    options: {
+        draftAndPublish: true;
+    };
+    pluginOptions: {
+        i18n: {
+            localized: true;
+        };
+    };
+    attributes: {
+        idSection: Schema.Attribute.UID &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 2;
+            }>;
+        sectionTitle: Schema.Attribute.String &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 2;
+                maxLength: 15;
+            }> &
+            Schema.Attribute.DefaultTo<"Section">;
+        createdAt: Schema.Attribute.DateTime;
+        updatedAt: Schema.Attribute.DateTime;
+        publishedAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        locale: Schema.Attribute.String;
+        localizations: Schema.Attribute.Relation<"oneToMany", "api::menu-link.menu-link">;
+    };
+}
+
 export interface AdminPermission extends Struct.CollectionTypeSchema {
     collectionName: "admin_permissions";
     info: {
@@ -756,7 +846,6 @@ export interface AdminTransferTokenPermission extends Struct.CollectionTypeSchem
 declare module "@strapi/strapi" {
     export module Public {
         export interface ContentTypeSchemas {
-            "api::homepage.homepage": ApiHomepageHomepage;
             "plugin::upload.file": PluginUploadFile;
             "plugin::upload.folder": PluginUploadFolder;
             "plugin::i18n.locale": PluginI18NLocale;
@@ -767,6 +856,9 @@ declare module "@strapi/strapi" {
             "plugin::users-permissions.permission": PluginUsersPermissionsPermission;
             "plugin::users-permissions.role": PluginUsersPermissionsRole;
             "plugin::users-permissions.user": PluginUsersPermissionsUser;
+            "api::header.header": ApiHeaderHeader;
+            "api::homepage.homepage": ApiHomepageHomepage;
+            "api::menu-link.menu-link": ApiMenuLinkMenuLink;
             "admin::permission": AdminPermission;
             "admin::user": AdminUser;
             "admin::role": AdminRole;

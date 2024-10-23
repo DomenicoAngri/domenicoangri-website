@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-// import axios from "axios";
+import { useSelector } from "react-redux";
+// import { RootState } from "./redux/store";
+import axios from "axios";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -8,28 +10,24 @@ import Header from "./components/header/Header";
 
 function App() {
     const [count, setCount] = useState(0);
-    // const [bodyText, setBodyText] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-    // const url = import.meta.env.VITE_API_URL;
+    const language = useSelector((state) => state.language.language);
+    const [bodyText, setBodyText] = useState([]);
+    const url = import.meta.env.VITE_API_URL;
 
-    // useEffect(() => {
-    //     const fetchBodyText = async () => {
-    //         try {
-    //             // API from strapi
-    //             const response = await axios.get(`${url}/homepage`);
-    //             setBodyText(response.data.data);
-    //         } catch (err) {
-    //             setError(err);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
-    //     fetchBodyText();
-    // }, []);
-
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>Error: {error.message}</p>;
+    useEffect(() => {
+        const fetchBodyText = async () => {
+            try {
+                // API from strapi
+                const response = await axios.get(`${url}/homepage?locale=${language}`);
+                setBodyText(response.data.data);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                console.log("finally catch dentro homepage");
+            }
+        };
+        fetchBodyText();
+    }, [language]);
 
     return (
         <>
@@ -42,6 +40,7 @@ function App() {
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
             </div>
+            <p>{bodyText.body}</p>
             <p className="read-the-docs">Developed with love by DA</p>
             <p>
                 Cos’è Lorem Ipsum? Lorem Ipsum è un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum è considerato
