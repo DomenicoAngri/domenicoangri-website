@@ -1,0 +1,12 @@
+.container {
+    @apply fixed inset-0 flex items-center justify-center bg-black;
+}
+
+.icon {
+}
+
+.title {
+}
+
+.description {
+}

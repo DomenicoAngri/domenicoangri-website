@@ -10,6 +10,8 @@ import env from "./config/environmentVariables";
 
 import Header from "./components/header/Header";
 
+import FatalError from "@components/FatalError";
+
 function App() {
     const [count, setCount] = useState(0);
     const language = useSelector((state) => state.language.currentLanguage);
@@ -32,6 +34,7 @@ function App() {
 
     return (
         <>
+            <FatalError />
             <Header />
             <div className="mt-20">
                 <img src={viteLogo} className="logo" alt="Vite logo" />
