@@ -1,0 +1,42 @@
+# Dependabot configuration file version (current is version 2)
+version: 2
+
+updates:
+    # Block for managing dependency updates
+
+    # Package manager to use.
+    - package-ecosystem: "npm"
+
+      # Directory where Dependabot should check for updates.
+      # "/" refers to the root of the repository.
+      directory: "/"
+
+      schedule:
+          # Frequency of dependency checks. Options: daily, weekly, monthly.
+          # You can change "weekly" to "daily" or "monthly" as needed.
+          interval: "weekly"
+
+      # The branch against which pull requests will be created.
+      # Change this to "develop" or another branch if needed.
+      target-branch: "develop"
+
+      # The maximum number of open pull requests Dependabot will create at one time.
+      open-pull-requests-limit: 10
+
+      # Adds a prefix to the commit messages for Dependabot PRs.
+      commit-message:
+          prefix: "chore"
+
+      # Optional: Assign reviewers automatically to Dependabot pull requests.
+      # reviewers:
+      # - "domenicoangri"
+
+      # Optional: Add labels to Dependabot pull requests for easier identification.
+      labels:
+          - "dependencies"
+          - "automated"
+
+      # Optional: Ignore specific versions of a dependency.
+      # ignore:
+      # - dependency-name: "lodash"
+      # versions: ["<4.17.0"]
