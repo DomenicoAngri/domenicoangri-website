@@ -1,12 +1,12 @@
 {
-    "name": "domenico-angri-persona-website-backend",
+    "name": "domenico-angri-personal-website-backend",
     "version": "0.1.0",
     "private": true,
     "description": "Domenico Angri personal website strapi cms.",
     "scripts": {
+        "dev": "strapi develop",
         "build": "strapi build",
         "deploy": "strapi deploy",
-        "develop": "strapi develop",
         "start": "strapi start",
         "strapi": "strapi"
     },

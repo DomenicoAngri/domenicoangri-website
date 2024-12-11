@@ -1,0 +1,19 @@
+{
+    "name": "domenico-angri-personal-website",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Domenico Angri personal website.",
+    "packageManager": "yarn@1.22.22",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "shared/*"
+    ],
+    "scripts": {
+        "dev": "turbo run dev",
+        "build": "turbo run build"
+    },
+    "devDependencies": {
+        "turbo": "^2.3.3"
+    }
+}
