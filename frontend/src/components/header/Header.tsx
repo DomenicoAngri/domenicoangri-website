@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@redux/store";
-import { setLanguage } from "@redux/reducers/language.reducer";
+
+// import { RootState } from "@redux/store";
+import { RootState } from "../../redux/store";
+
+// import { setLanguage } from "@redux/reducers/language.reducer";
+import { setLanguage } from "../../redux/reducers/language.reducer";
+
 import axios from "axios";
-import env from "@config/environmentVariables";
+
+// import env from "@config/environmentVariables";
+import env from "../../config/environmentVariables";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage, faBars, faX } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +20,9 @@ import { Dispatch } from "redux";
 /**
  * TODO
  * - Definire cosa fare se non dovesse comunicare col BE --> Stato di loading se le risposte sono null.
+ * - Risolvere le dipendenze dei moduli.
+ * - Aggiungere qualcosa che gestisca un monorepo (tipo turbo o lerna).
+ * - Ricreare tutto DB strapi in locale.
  */
 
 const Header = () => {

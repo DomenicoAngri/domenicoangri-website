@@ -414,7 +414,7 @@ export interface ApiHeaderHeader extends Struct.SingleTypeSchema {
             Schema.Attribute.Required &
             Schema.Attribute.SetPluginOptions<{
                 i18n: {
-                    localized: true;
+                    localized: false;
                 };
             }> &
             Schema.Attribute.SetMinMaxLength<{
@@ -449,7 +449,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
         };
     };
     attributes: {
-        body: Schema.Attribute.String &
+        body: Schema.Attribute.Text &
             Schema.Attribute.SetPluginOptions<{
                 i18n: {
                     localized: true;
@@ -463,55 +463,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
         updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
         locale: Schema.Attribute.String;
         localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
-    };
-}
-
-export interface ApiMenuLinkMenuLink extends Struct.CollectionTypeSchema {
-    collectionName: "menu_links";
-    info: {
-        singularName: "menu-link";
-        pluralName: "menu-links";
-        displayName: "menuLink";
-        description: "";
-    };
-    options: {
-        draftAndPublish: true;
-    };
-    pluginOptions: {
-        i18n: {
-            localized: true;
-        };
-    };
-    attributes: {
-        idSection: Schema.Attribute.UID &
-            Schema.Attribute.Required &
-            Schema.Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true;
-                };
-            }> &
-            Schema.Attribute.SetMinMaxLength<{
-                minLength: 2;
-            }>;
-        sectionTitle: Schema.Attribute.String &
-            Schema.Attribute.Required &
-            Schema.Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: true;
-                };
-            }> &
-            Schema.Attribute.SetMinMaxLength<{
-                minLength: 2;
-                maxLength: 15;
-            }> &
-            Schema.Attribute.DefaultTo<"Section">;
-        createdAt: Schema.Attribute.DateTime;
-        updatedAt: Schema.Attribute.DateTime;
-        publishedAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        locale: Schema.Attribute.String;
-        localizations: Schema.Attribute.Relation<"oneToMany", "api::menu-link.menu-link">;
     };
 }
 
@@ -857,7 +808,6 @@ declare module "@strapi/strapi" {
             "plugin::users-permissions.user": PluginUsersPermissionsUser;
             "api::header.header": ApiHeaderHeader;
             "api::homepage.homepage": ApiHomepageHomepage;
-            "api::menu-link.menu-link": ApiMenuLinkMenuLink;
             "admin::permission": AdminPermission;
             "admin::user": AdminUser;
             "admin::role": AdminRole;

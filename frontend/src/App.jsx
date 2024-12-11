@@ -10,7 +10,8 @@ import env from "./config/environmentVariables";
 
 import Header from "./components/header/Header";
 
-import FatalError from "@components/FatalError";
+// import FatalError from "@components/FatalError";
+import FatalError from "./components/FatalError/FatalError";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -34,7 +35,7 @@ function App() {
 
     return (
         <>
-            <FatalError />
+            {/* <FatalError /> */}
             <Header />
             <div className="mt-20">
                 <img src={viteLogo} className="logo" alt="Vite logo" />
