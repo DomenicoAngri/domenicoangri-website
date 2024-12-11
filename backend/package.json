@@ -11,20 +11,20 @@
         "strapi": "strapi"
     },
     "dependencies": {
-        "@strapi/plugin-cloud": "5.0.6",
-        "@strapi/plugin-users-permissions": "5.0.6",
-        "@strapi/strapi": "5.0.6",
+        "@strapi/plugin-cloud": "5.5.1",
+        "@strapi/plugin-users-permissions": "5.5.1",
+        "@strapi/strapi": "5.5.1",
         "better-sqlite3": "^11.3.0",
-        "pg": "8.8.0",
-        "react": "^18.0.0",
-        "react-dom": "^18.0.0",
-        "react-router-dom": "^6.0.0",
+        "pg": "8.13.1",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-router-dom": "^7.0.2",
         "styled-components": "^6.0.0"
     },
     "devDependencies": {
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
+        "@types/node": "^22.10.2",
+        "@types/react": "^19.0.1",
+        "@types/react-dom": "^19.0.2",
         "typescript": "^5"
     },
     "engines": {
