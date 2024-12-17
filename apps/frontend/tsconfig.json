@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "target": "ESNext", // Modern ECMAScript target
+        "useDefineForClassFields": true, // For correct behavior of class fields
+        "lib": ["DOM", "DOM.Iterable", "ESNext"], // Necessary libraries for a modern web app
+        "allowJs": false, // If you also have JS files, you can set this to true
+        "skipLibCheck": true, // Skip type checking in libraries for speed
+        "esModuleInterop": true, // Better support for importing CommonJS modules
+        "module": "ESNext", // Module system used by ESNext
+        "moduleResolution": "Node", // How to resolve modules
+        "resolveJsonModule": true, // To support importing JSON files
+        "isolatedModules": true, // Necessary for Vite
+        "noEmit": true, // Disables output emission (useful for Vite)
+        "jsx": "react-jsx", // Use modern JSX syntax (React 17+)
+        "strict": true, // Enable all strict TypeScript checks
+        "forceConsistentCasingInFileNames": true, // Prevent errors caused by case-sensitive file names
+        "allowSyntheticDefaultImports": true, // Allow default imports for modules without default export
+        "paths": {
+            "@components/*": ["src/components/*"], // Alias for components
+            "@assets/*": ["src/assets/*"], // Alias for assets
+            "@redux/*": ["src/redux/*"], // Alias for Redux
+            "@config/*": ["src/config/*"] // Alias for configs
+        },
+        "types": ["vite/client"], // Adds Vite types
+        "baseUrl": "./frontend", // Base URL for relative module resolution
+        "experimentalDecorators": true // Allows the use of decorators, if needed for Redux or Strapi
+    },
+    "include": ["src"], // Includes all TypeScript and TSX files in the src folder
+    "exclude": ["node_modules", "dist"] // Excludes the node_modules and dist folders from analysis
+}
