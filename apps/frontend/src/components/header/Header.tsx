@@ -21,8 +21,6 @@ import { Dispatch } from "redux";
  * // TODO
  * - Definire cosa fare se non dovesse comunicare col BE --> Stato di loading se le risposte sono null.
  * - Risolvere le dipendenze dei moduli.
- * - Aggiungere qualcosa che gestisca un monorepo (tipo turbo o lerna).
- * - Ricreare tutto DB strapi in locale.
  */
 
 const Header = () => {

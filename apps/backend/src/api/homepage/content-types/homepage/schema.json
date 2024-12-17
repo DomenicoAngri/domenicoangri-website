@@ -24,6 +24,18 @@
       },
       "type": "text",
       "default": "This is a default value for body homepage!"
+    },
+    "WelcomeImg": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

@@ -397,6 +397,12 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
         publishedAt: Schema.Attribute.DateTime;
         updatedAt: Schema.Attribute.DateTime;
         updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        WelcomeImg: Schema.Attribute.Media<"images"> &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: false;
+                };
+            }>;
     };
 }
 
