@@ -21,6 +21,9 @@ import { Dispatch } from "redux";
  * // TODO
  * - Definire cosa fare se non dovesse comunicare col BE --> Stato di loading se le risposte sono null.
  * - Risolvere le dipendenze dei moduli.
+ * - Vedere quali sono le dipendenze comuni e metterle dentro al package.json.
+ * - Vedere tutti i console log e nel caso eliminarli.
+ * - Modificare il nome del campo del titolo dell'header, ora si chiama siteTitle, modificarlo con qualcosa che richiami l'header.
  */
 
 const Header = () => {

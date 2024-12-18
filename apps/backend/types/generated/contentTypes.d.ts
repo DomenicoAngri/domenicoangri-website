@@ -383,26 +383,38 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
         };
     };
     attributes: {
-        body: Schema.Attribute.Text &
+        createdAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        homepageBody: Schema.Attribute.RichText &
             Schema.Attribute.SetPluginOptions<{
                 i18n: {
                     localized: true;
                 };
             }> &
-            Schema.Attribute.DefaultTo<"This is a default value for body homepage!">;
-        createdAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        locale: Schema.Attribute.String;
-        localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
-        publishedAt: Schema.Attribute.DateTime;
-        updatedAt: Schema.Attribute.DateTime;
-        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        WelcomeImg: Schema.Attribute.Media<"images"> &
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 2;
+            }>;
+        homepageImage: Schema.Attribute.Media<"images"> &
             Schema.Attribute.SetPluginOptions<{
                 i18n: {
                     localized: false;
                 };
             }>;
+        homepageTitle: Schema.Attribute.String &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 2;
+            }>;
+        locale: Schema.Attribute.String;
+        localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
+        publishedAt: Schema.Attribute.DateTime;
+        updatedAt: Schema.Attribute.DateTime;
+        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
     };
 }
 

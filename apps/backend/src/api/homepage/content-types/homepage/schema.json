@@ -16,26 +16,37 @@
     }
   },
   "attributes": {
-    "body": {
+    "homepageTitle": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "text",
-      "default": "This is a default value for body homepage!"
+      "type": "string",
+      "required": true,
+      "minLength": 2
     },
-    "WelcomeImg": {
+    "homepageImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
       ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
+    },
+    "homepageBody": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext",
+      "minLength": 2
     }
   }
 }
