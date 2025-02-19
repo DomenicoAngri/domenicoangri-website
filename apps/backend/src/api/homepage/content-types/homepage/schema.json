@@ -39,7 +39,7 @@
         }
       }
     },
-    "homepageBody": {
+    "homepageTextBody": {
       "pluginOptions": {
         "i18n": {
           "localized": true

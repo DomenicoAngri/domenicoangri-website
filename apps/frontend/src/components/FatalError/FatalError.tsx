@@ -1,23 +1,14 @@
-import { FatalErrorProps } from "./FatalError.types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import FatalErrorProps from "./FatalError.types";
+import FatalErrorSvgComponent from "../../assets/svg/FatalErrorSvgComponent";
 import "./FatalError.css";
 
 const FatalError = (props: FatalErrorProps) => {
-    const { codeError, title, description, icon } = props;
-    let defaultIconError: IconProp;
-
-    if (icon) {
-        defaultIconError = icon;
-    } else {
-        defaultIconError = faCircleExclamation;
-    }
+    const { codeError, title, description } = props;
 
     return (
         <div className="container">
             <div className="icon">
-                <FontAwesomeIcon icon={defaultIconError} />
+                <FatalErrorSvgComponent width={300} height={300} />
             </div>
             <div className="title">{title}</div>
             <div>

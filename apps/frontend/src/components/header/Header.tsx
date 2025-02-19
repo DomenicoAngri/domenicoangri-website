@@ -101,7 +101,7 @@ const Header = () => {
                 <TestComp />
             ) : (
                 <header id="header" className="header">
-                    <nav className="nav">
+                    <nav>
                         <div className="title">
                             <a href="#">{headerResponse.siteTitle}</a>
                         </div>

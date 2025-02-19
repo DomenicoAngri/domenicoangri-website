@@ -385,7 +385,13 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     attributes: {
         createdAt: Schema.Attribute.DateTime;
         createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        homepageBody: Schema.Attribute.RichText &
+        homepageImage: Schema.Attribute.Media<"images"> &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: false;
+                };
+            }>;
+        homepageTextBody: Schema.Attribute.RichText &
             Schema.Attribute.SetPluginOptions<{
                 i18n: {
                     localized: true;
@@ -393,12 +399,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
             }> &
             Schema.Attribute.SetMinMaxLength<{
                 minLength: 2;
-            }>;
-        homepageImage: Schema.Attribute.Media<"images"> &
-            Schema.Attribute.SetPluginOptions<{
-                i18n: {
-                    localized: false;
-                };
             }>;
         homepageTitle: Schema.Attribute.String &
             Schema.Attribute.Required &
