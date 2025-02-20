@@ -1,7 +1,11 @@
+/* ************************************************************
+ * Base tailwind CSS to redefine all default HTML elements
+ * ************************************************************ */
+
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
+/* Custom font */
 @font-face {
     font-family: "inconsolata";
     src: url("./assets/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf") format("truetype");
@@ -9,18 +13,34 @@
     font-style: "normal";
 }
 
+/* Custom default HTML elements */
 @layer base {
-    /* Layer utile per definire gli stili primari del sito, come html, body, h1, ecc.. */
+    /*
+        - Wildcard selector (*) to target all elements.
+        - box-border: padding and border will not grow up the size of the element.
+    */
+    *,
+    *::before,
+    *::after {
+        @apply box-border;
+    }
+
+    /* Apply custom font, antialiased for better reading and smoothy scroll. */
     html {
         @apply font-custom antialiased;
         scroll-behavior: smooth;
     }
 
+    /* Apply all screen height, primary background color and text style. */
     body {
-        @apply min-h-screen flex flex-col bg-primary text-secondary text-xl;
+        @apply min-h-screen bg-primary text-secondary text-xl;
         /* TODO: da vedere se utile dopo, questa variabile CSS personalizzata serve a dare un'altezza fissa all'header da utilizzare anche in altri file CSS.  */
         /* --header-padding-height: 1.5rem; */
     }
+
+    /* **************************
+     * Font for title elements
+     * ************************** */
 
     h1 {
         @apply font-bold text-3xl;
@@ -30,15 +50,133 @@
         @apply font-bold text-2xl;
     }
 
+    h3 {
+        @apply font-bold text-xl;
+    }
+
+    h4 {
+        @apply font-bold text-lg;
+    }
+
+    h5 {
+        @apply font-bold text-base;
+    }
+
+    h6 {
+        @apply font-bold text-sm;
+    }
+
+    /* TODO - check how underline will show. */
     a {
         @apply no-underline;
     }
 
+    /* **************************
+     * Typography & text
+     * ************************** */
+
+    /* Font size for text and margin bottom. */
     p {
-        @apply mb-4;
+        @apply mb-3 text-xl;
+    }
+
+    /* TODO - SPAN - Inherit the text style. */
+    /* span {
+        @apply text-inherit;
+    } */
+
+    /* 
+        - Adds a left border for emphasis.
+        - Adds spacing before the text.
+        - Italic makes the text italic.
+        - text-gray-600: adjusts text color for light and dark themes.
+    */
+    blockquote {
+        @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400;
+    }
+
+    /* Makes bold text stand out without being too heavy. */
+    strong {
+        @apply font-semibold text-gray-900 dark:text-gray-100;
+    }
+
+    /*
+        - Font-mono uses a monospaced font.
+        - bg-gray-100 and dark:bg-gray-800 add a subtle background.
+        - px-1 provides horizontal padding.
+        - rounded slightly rounds the corners.
+    */
+    code {
+        @apply font-mono bg-gray-100 dark:bg-gray-800 px-1 rounded text-sm text-red-600 dark:text-red-400;
+    }
+
+    /*
+        - bg-gray-900 gives a dark background for code blocks.
+        - overflow-x-auto allows horizontal scrolling for long lines
+    */
+    pre {
+        @apply font-mono text-sm bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
+    }
+
+    /* **************************
+     * Responsive media
+     * ************************** */
+
+    /*
+        - max-w-full prevents images and videos from exceeding their container width.
+        - h-auto maintains their original aspect ratio.
+    */
+    img,
+    video {
+        @apply max-w-full h-auto;
+    }
+
+    /* **************************
+     * Lists and tables
+     * ************************** */
+
+    /*
+        - list-disc adds bullet points to unordered lists.
+        - list-inside ensures bullets appear inside the container.
+    */
+    ul,
+    ol {
+        @apply list-disc list-inside leading-relaxed;
+    }
+
+    /* 
+        - w-full makes tables stretch to fit their container.
+        - border-collapse ensures table borders merge properly.
+    */
+    table {
+        
+    }
+
+    /*
+        - Border applies a subtle border to table cells.
+        - px-4 py-2 adds padding for better spacing.
+        - text-left aligns text to the left.
+    */
+    th,
+    td {
+        @apply border border-gray-300 dark:border-gray-700 px-4 py-2 text-left;
+    }
+
+    /* **************************
+     * Separators
+     * ************************** */
+
+    /*
+        - my-4 adds vertical spacing.
+        - border-gray-300 keeps the divider subtle.
+    */
+    hr {
+        @apply my-4 border-gray-300 dark:border-gray-600;
     }
 }
 
 @layer components {
-    /* Layer utile per definire classi personalizzate da riutilizzare nei componenti. */
+    .defaultMarginBottom {
+        @apply mb-3;
+    }
 }

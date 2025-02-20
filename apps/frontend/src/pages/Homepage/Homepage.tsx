@@ -6,6 +6,7 @@ import env from "../../config/environmentVariables";
 import axios from "axios";
 import { marked } from "marked";
 import FatalError from "../../components/FatalError/FatalError";
+import "./Homepage.css";
 
 // TODO: togliere isloading dalla pagina web, se serve metterlo, magari mettere un'icona / animazione di caricamento o delle shadow.
 // TODO: aggiustare tutta la homepage.
@@ -28,7 +29,7 @@ const Homepage = () => {
 
     const retriveHomepageContents = async () => {
         try {
-            const response = await axios.get(`${env.apiUrl}/homepagee?locale=${siteLanguage}`);
+            const response = await axios.get(`${env.apiUrl}/homepfage?locale=${siteLanguage}`);
             setHomepageContentes(response.data.data);
         } catch (err) {
             console.error(err);
@@ -39,8 +40,10 @@ const Homepage = () => {
         <>
             {homepageContents ? (
                 <>
-                    <h1>{homepageContents.homepageTitle}</h1>
-                    <div dangerouslySetInnerHTML={{ __html: marked(homepageContents.homepageTextBody) }} />
+                    <div className="prova">
+                        <h1>{homepageContents.homepageTitle}</h1>
+                        <div dangerouslySetInnerHTML={{ __html: marked(homepageContents.homepageTextBody) }} />
+                    </div>
                 </>
             ) : (
                 <FatalError codeError="500" title="error" description="error desc" />

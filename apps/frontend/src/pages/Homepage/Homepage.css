@@ -30,3 +30,7 @@ nav {
     @apply transition-colors duration-700 ease-in-out text-secondary font-normal;
     text-shadow: none;
 }
+
+.prova {
+    @apply flex flex-col justify-center items-center h-full;
+}
