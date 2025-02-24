@@ -4,6 +4,7 @@
 
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 
 /* Custom font */
 @font-face {
@@ -149,7 +150,6 @@
         - border-collapse ensures table borders merge properly.
     */
     table {
-        
     }
 
     /*
@@ -176,7 +176,19 @@
 }
 
 @layer components {
+    .defaultMarginTop {
+        @apply mb-3;
+    }
+
+    .defaultMarginRight {
+        @apply mb-3;
+    }
+
     .defaultMarginBottom {
+        @apply mb-3;
+    }
+
+    .defaultMarginLeft {
         @apply mb-3;
     }
 }
