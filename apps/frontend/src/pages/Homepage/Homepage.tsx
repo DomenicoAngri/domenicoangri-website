@@ -7,6 +7,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { marked } from "marked";
 import FatalError from "../../components/FatalError/FatalError";
 import "./Homepage.css";
+import GenderReveal from "../GenderReveal/GenderReveal";
 
 // TODO: aggiustare tutta la homepage.
 // TODO: inserire animazioni.
@@ -54,6 +55,11 @@ const Homepage = () => {
 
     return (
         <>
+            <GenderReveal />
+
+            {/* 
+                GENDER REVEAL HOMEPAGE WIP
+            
             {isLoading ? (
                 <div className="loading-container">
                     <p>Loading...</p>
@@ -65,7 +71,7 @@ const Homepage = () => {
                     <h1>{homepageContents?.homepageTitle}</h1>
                     <div dangerouslySetInnerHTML={{ __html: marked(homepageContents?.homepageTextBody || "") }} />
                 </div>
-            )}
+            )} */}
         </>
     );
 };

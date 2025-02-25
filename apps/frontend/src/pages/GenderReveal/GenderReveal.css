@@ -1,0 +1,17 @@
+/* Custom font */
+@font-face {
+    font-family: "fredoka";
+    src: url("../../assets/fonts/fredoka/fredoka.ttf") format("truetype");
+    font-weight: 400;
+    font-style: "normal";
+}
+
+.mainContainer {
+    background-color: #2270a0;
+    font-family: "fredoka";
+    @apply flex flex-col w-full max-w-full h-screen overflow-x-hidden;
+}
+
+.bodyContainer {
+    @apply flex flex-col items-center justify-center w-full max-w-full;
+}
