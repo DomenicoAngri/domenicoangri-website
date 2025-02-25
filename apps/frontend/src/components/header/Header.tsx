@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// import { RootState } from "@redux/store";
+// TODO - insert import from lib - import { RootState } from "@redux/store";
 import { RootState } from "../../redux/store";
 
-// import { setLanguage } from "@redux/reducers/language.reducer";
+// TODO - insert import from lib - import { setLanguage } from "@redux/reducers/language.reducer";
 import { setLanguage } from "../../redux/reducers/language.reducer";
 
 import axios from "axios";
 
-// import env from "@config/environmentVariables";
+// TODO - insert import from lib - import env from "@config/environmentVariables";
 import env from "../../config/environmentVariables";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,8 +21,9 @@ import { Dispatch } from "redux";
  * // TODO
  * - Definire cosa fare se non dovesse comunicare col BE --> Stato di loading se le risposte sono null.
  * - Risolvere le dipendenze dei moduli.
- * - Aggiungere qualcosa che gestisca un monorepo (tipo turbo o lerna).
- * - Ricreare tutto DB strapi in locale.
+ * - Vedere quali sono le dipendenze comuni e metterle dentro al package.json.
+ * - Vedere tutti i console log e nel caso eliminarli.
+ * - Modificare il nome del campo del titolo dell'header, ora si chiama siteTitle, modificarlo con qualcosa che richiami l'header.
  */
 
 const Header = () => {
@@ -100,7 +101,7 @@ const Header = () => {
                 <TestComp />
             ) : (
                 <header id="header" className="header">
-                    <nav className="nav">
+                    <nav>
                         <div className="title">
                             <a href="#">{headerResponse.siteTitle}</a>
                         </div>

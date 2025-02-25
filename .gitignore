@@ -46,6 +46,9 @@ build/
 .env.test.local
 .env.production.local
 
+# Turbo local environment files
+.turbo/
+
 # Yarn specific files
 .yarn/cache/
 .yarn/unplugged/

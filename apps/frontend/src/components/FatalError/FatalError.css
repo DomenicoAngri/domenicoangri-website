@@ -1,12 +1,3 @@
-.container {
-    @apply fixed inset-0 flex items-center justify-center bg-black;
-}
-
-.icon {
-}
-
-.title {
-}
-
-.description {
+.flexColumn {
+    @apply flex flex-col items-center justify-center;
 }

@@ -383,15 +383,33 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
         };
     };
     attributes: {
-        body: Schema.Attribute.Text &
+        createdAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        homepageImage: Schema.Attribute.Media<"images"> &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: false;
+                };
+            }>;
+        homepageTextBody: Schema.Attribute.RichText &
             Schema.Attribute.SetPluginOptions<{
                 i18n: {
                     localized: true;
                 };
             }> &
-            Schema.Attribute.DefaultTo<"This is a default value for body homepage!">;
-        createdAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 2;
+            }>;
+        homepageTitle: Schema.Attribute.String &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetPluginOptions<{
+                i18n: {
+                    localized: true;
+                };
+            }> &
+            Schema.Attribute.SetMinMaxLength<{
+                minLength: 2;
+            }>;
         locale: Schema.Attribute.String;
         localizations: Schema.Attribute.Relation<"oneToMany", "api::homepage.homepage">;
         publishedAt: Schema.Attribute.DateTime;
