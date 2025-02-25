@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-// import { RootState } from "@redux/store";
+// TODO - insert import from lib - import { RootState } from "@redux/store";
 import { RootState } from "../../redux/store";
 
-// import { setLanguage } from "@redux/reducers/language.reducer";
+// TODO - insert import from lib - import { setLanguage } from "@redux/reducers/language.reducer";
 import { setLanguage } from "../../redux/reducers/language.reducer";
 
 import axios from "axios";
 
-// import env from "@config/environmentVariables";
+// TODO - insert import from lib - import env from "@config/environmentVariables";
 import env from "../../config/environmentVariables";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -1,5 +1,5 @@
 export default interface FatalErrorProps {
     codeError?: string;
-    title: string;
+    title?: string;
     description?: string;
 }

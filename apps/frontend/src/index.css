@@ -1,6 +1,6 @@
-/* ************************************************************
+/* *********************************************************
  * Base tailwind CSS to redefine all default HTML elements
- * ************************************************************ */
+ * ********************************************************* */
 
 @tailwind base;
 @tailwind components;
@@ -39,9 +39,9 @@
         /* --header-padding-height: 1.5rem; */
     }
 
-    /* **************************
+    /* *************************
      * Font for title elements
-     * ************************** */
+     * ************************* */
 
     h1 {
         @apply font-bold text-3xl;
@@ -72,9 +72,9 @@
         @apply no-underline;
     }
 
-    /* **************************
+    /* *******************
      * Typography & text
-     * ************************** */
+     * ******************* */
 
     /* Font size for text and margin bottom. */
     p {
@@ -119,9 +119,9 @@
         @apply font-mono text-sm bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto;
     }
 
-    /* **************************
+    /* ******************
      * Responsive media
-     * ************************** */
+     * ****************** */
 
     /*
         - max-w-full prevents images and videos from exceeding their container width.
@@ -132,9 +132,9 @@
         @apply max-w-full h-auto;
     }
 
-    /* **************************
+    /* ******************
      * Lists and tables
-     * ************************** */
+     * ****************** */
 
     /*
         - list-disc adds bullet points to unordered lists.
@@ -162,9 +162,9 @@
         @apply border border-gray-300 dark:border-gray-700 px-4 py-2 text-left;
     }
 
-    /* **************************
+    /* ************
      * Separators
-     * ************************** */
+     * ************ */
 
     /*
         - my-4 adds vertical spacing.

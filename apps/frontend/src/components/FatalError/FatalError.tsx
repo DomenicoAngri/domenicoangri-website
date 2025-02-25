@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import FatalErrorProps from "./FatalError.types";
 import FatalErrorSvgComponent from "../../assets/svg/FatalErrorSvgComponent";
 import { motion } from "framer-motion";
@@ -18,12 +19,14 @@ import {
     ERROR_IT,
     WHAT_HAPPENED_EN,
     WHAT_HAPPENED_IT,
+    UNKNOWN_EN,
+    UNKNOWN_IT,
 } from "./FatalError.config";
 
 const FatalError = (props: FatalErrorProps) => {
     const { codeError, title, description } = props;
 
-    const siteLanguage = useSelector((state) => state.language.currentLanguage);
+    const siteLanguage = useSelector((state: RootState) => state.language.currentLanguage);
     const [isShaking, setIsShaking] = useState(false);
 
     useEffect(() => {
@@ -54,13 +57,16 @@ const FatalError = (props: FatalErrorProps) => {
             <div className="flexColumn">
                 <span>{siteLanguage === "en" ? ERROR_BELOW_EN : ERROR_BELOW_IT}</span>
                 <span>
-                    <strong>{siteLanguage === "en" ? ERROR_CODE_EN : ERROR_CODE_IT}</strong> {codeError}
+                    <strong>{siteLanguage === "en" ? ERROR_CODE_EN : ERROR_CODE_IT}</strong>
+                    {codeError ? codeError : siteLanguage === "en" ? UNKNOWN_EN : UNKNOWN_IT}
                 </span>
                 <span>
-                    <strong>{siteLanguage === "en" ? ERROR_EN : ERROR_IT}</strong> {description}
+                    <strong>{siteLanguage === "en" ? ERROR_EN : ERROR_IT}</strong>
+                    {description ? description : siteLanguage === "en" ? UNKNOWN_EN : UNKNOWN_IT}
                 </span>
                 <span>
-                    <strong>{siteLanguage === "en" ? ERROR_DESCRIPTION_EN : ERROR_DESCRIPTION_IT}</strong> {title}
+                    <strong>{siteLanguage === "en" ? ERROR_DESCRIPTION_EN : ERROR_DESCRIPTION_IT}</strong>
+                    {title ? title : siteLanguage === "en" ? UNKNOWN_EN : UNKNOWN_IT}
                 </span>
             </div>
         </div>
