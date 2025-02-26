@@ -1,0 +1,32 @@
+header {
+    @apply fixed top-0 left-0 w-full z-10 bg-opacity-50 backdrop-blur-sm;
+    /* TODO: da vedere se usare, Usa la variabile CSS personalizzata definita nel file index.css */
+    /* padding-top: var(--header-padding-height);
+    padding-bottom: var(--header-padding-height); */
+}
+
+nav {
+    @apply container mx-auto flex justify-between items-center px-5;
+}
+
+.title {
+    @apply text-xl font-bold;
+}
+
+.subNav {
+    @apply flex justify-around items-center;
+}
+
+.subNavElement {
+    @apply mx-4;
+}
+
+.activeSection {
+    @apply transition-colors duration-700 ease-in-out text-accent font-semibold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.inactiveSection {
+    @apply transition-colors duration-700 ease-in-out text-secondary font-normal;
+    text-shadow: none;
+}
