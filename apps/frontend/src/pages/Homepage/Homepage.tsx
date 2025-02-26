@@ -16,6 +16,7 @@ import Lottie from "lottie-react";
 import wip from "../../assets/svg/wip.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
+import Loader from "../../components/Loader/Loader";
 
 // TODO: aggiustare tutta la homepage.
 // TODO: inserire animazioni.
@@ -23,8 +24,8 @@ import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 // TODO: mettere tutto sotto l'header.
 // TODO: Modificare l'header.
 // TODO: Mettere i bordi a tutta l'app per non fare azzeccare le scritte al bordo.
-// TODO: Inserire un loading spinner.
 // TODO: Capire cosa fare col marked se non ritorna un valore (non si può mettere stringa vuota nel dangerouslySetInnerHTML).
+// TODO: Capire cosa fare con i campi qualora vuoti (tipo title e footer).
 
 const Homepage = () => {
     // Get the current site language from global state.
@@ -65,17 +66,17 @@ const Homepage = () => {
     };
 
     return (
-        <div className="p-2">
+        <div className="p-3">
             {/* <GenderReveal /> */}
 
             {isLoading ? (
-                <div className="loading-container">
-                    <p>Loading...</p>
-                </div>
+                <>
+                    <Loader />
+                </>
             ) : hasError ? (
                 <FatalError codeError={hasError.status?.toString()} title={hasError.code} description={hasError.message} />
             ) : (
-                <div className="flex flex-col md:items-start md:max-w-3xl mx-auto p-1">
+                <div className="flex flex-col md:items-start md:max-w-3xl mx-auto">
                     <div
                         className="self-end cursor-pointer mb-5"
                         onClick={() => {
@@ -102,6 +103,7 @@ const Homepage = () => {
                         <Greatings />
                         <div className="mb-5">{homepageContents?.homepageTitle}</div>
                         <div dangerouslySetInnerHTML={{ __html: marked(homepageContents?.homepageTextBody || "") }} />
+                        <div className="text-gray-400 text-sm">{homepageContents?.homepageFooterText}</div>
                     </div>
                 </div>
             )}
