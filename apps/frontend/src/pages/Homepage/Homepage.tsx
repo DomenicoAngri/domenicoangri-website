@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
+import { Dispatch } from "redux";
+import { setLanguage } from "../../redux/reducers/language.reducer";
 import HomepageContentsProps from "./Homepage.types";
 import env from "../../config/environmentVariables";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -8,6 +10,12 @@ import { marked } from "marked";
 import FatalError from "../../components/FatalError/FatalError";
 import "./Homepage.css";
 import GenderReveal from "../GenderReveal/GenderReveal";
+import Greatings from "../../components/Greatings/Greatings";
+
+import Lottie from "lottie-react";
+import wip from "../../assets/svg/wip.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 
 // TODO: aggiustare tutta la homepage.
 // TODO: inserire animazioni.
@@ -21,6 +29,9 @@ import GenderReveal from "../GenderReveal/GenderReveal";
 const Homepage = () => {
     // Get the current site language from global state.
     const siteLanguage = useSelector((state: RootState) => state.language.currentLanguage);
+
+    // Dispatch action to reducer.
+    const dispatch: Dispatch = useDispatch();
 
     // This state will contain the response contents from the strapi API.
     const [homepageContents, setHomepageContentes] = useState<HomepageContentsProps>();
@@ -54,12 +65,9 @@ const Homepage = () => {
     };
 
     return (
-        <>
-            <GenderReveal />
+        <div className="p-2">
+            {/* <GenderReveal /> */}
 
-            {/* 
-                GENDER REVEAL HOMEPAGE WIP
-            
             {isLoading ? (
                 <div className="loading-container">
                     <p>Loading...</p>
@@ -67,12 +75,37 @@ const Homepage = () => {
             ) : hasError ? (
                 <FatalError codeError={hasError.status?.toString()} title={hasError.code} description={hasError.message} />
             ) : (
-                <div className="prova">
-                    <h1>{homepageContents?.homepageTitle}</h1>
-                    <div dangerouslySetInnerHTML={{ __html: marked(homepageContents?.homepageTextBody || "") }} />
+                <div className="flex flex-col md:items-start md:max-w-3xl mx-auto p-1">
+                    <div
+                        className="self-end cursor-pointer mb-5"
+                        onClick={() => {
+                            siteLanguage === "it" ? dispatch(setLanguage("en")) : dispatch(setLanguage("it"));
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faLanguage} />
+                    </div>
+
+                    <div className="flex justify-center items-center mb-5">
+                        <Lottie
+                            style={{ width: 300, height: 300 }}
+                            animationData={wip}
+                            loop={true}
+                            autoplay={true}
+                            rendererSettings={{
+                                progressiveLoad: true,
+                                preserveAspectRatio: "xMidYMid slice",
+                            }}
+                        />
+                    </div>
+
+                    <div className="md:text-left">
+                        <Greatings />
+                        <div className="mb-5">{homepageContents?.homepageTitle}</div>
+                        <div dangerouslySetInnerHTML={{ __html: marked(homepageContents?.homepageTextBody || "") }} />
+                    </div>
                 </div>
-            )} */}
-        </>
+            )}
+        </div>
     );
 };
 
