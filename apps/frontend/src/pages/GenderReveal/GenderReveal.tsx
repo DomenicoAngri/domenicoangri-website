@@ -2,6 +2,8 @@ import { useState } from "react";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
 import storkBaby from "../../assets/svg/storkBaby.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck, faBaby } from "@fortawesome/free-solid-svg-icons";
 import "./GenderReveal.css";
 
 const GenderReveal = () => {
@@ -39,8 +41,9 @@ const GenderReveal = () => {
                         damping: 20,
                         duration: 3,
                     }}
+                    className="mb-2"
                 >
-                    SARÀ LUI O SARÀ LEI?!
+                    SARÀ <span className="text-blue-400">LUI</span> O SARÀ <span className="text-pink-300">LEI</span>?!
                 </motion.h1>
 
                 <motion.div
@@ -53,16 +56,55 @@ const GenderReveal = () => {
                         Inserisci il codice del tuo invito:
                     </label>
 
-                    <input
-                        id="inviteCode"
-                        type="text"
-                        // value={code}
-                        // onChange={(e) => setCode(e.target.value)}
-                        className="w-64 p-2 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder={placeholder}
-                        onFocus={() => setPlaceholder("")}
-                        onBlur={(e) => setPlaceholder(e.target.value ? "" : "Inserisci il codice invito")}
-                    />
+                    {/* <div className="flex items-center justify-center w-full">
+                        <div className="relative flex items-center max-w-xs w-full">
+                            <input
+                                id="inviteCode"
+                                type="text"
+                                // value={code}
+                                // onChange={(e) => setCode(e.target.value)}
+                                // className="w-64 p-2 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full p-3 pr-12 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder={placeholder}
+                                onFocus={() => setPlaceholder("")}
+                                onBlur={(e) => setPlaceholder(e.target.value ? "" : "Codice invito...")}
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    /* Qui inserisci la chiamata al BE */
+                    /*   }}
+                                className="absolute right-1 h-10 w-10 flex items-center justify-center  hover:bg-pink-300 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                aria-label="Invia codice"
+                            >
+                                <FontAwesomeIcon icon={faCircleCheck} />
+                            </button>
+                        </div>
+                    </div> */}
+
+                    <div className="relative w-72">
+                        <input
+                            id="inviteCode"
+                            type="text"
+                            // value={code}
+                            // onChange={(e) => setCode(e.target.value)}
+                            className="w-full p-2 pr-10 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder={placeholder}
+                            onFocus={() => setPlaceholder("")}
+                            onBlur={(e) => setPlaceholder(e.target.value ? "" : "Codice invito...")}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => {
+                                /* Qui inserisci la chiamata al BE */
+                            }}
+                            className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center bg-blue-400 rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 mr-1"
+                            aria-label="Invia codice"
+                        >
+                            <FontAwesomeIcon icon={faBaby} />
+                        </button>
+                    </div>
                 </motion.div>
             </div>
         </div>

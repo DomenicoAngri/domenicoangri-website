@@ -9,7 +9,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { marked } from "marked";
 import FatalError from "../../components/FatalError/FatalError";
 import "./Homepage.css";
-import GenderReveal from "../GenderReveal/GenderReveal";
 import Greatings from "../../components/Greatings/Greatings";
 
 import Lottie from "lottie-react";
@@ -68,8 +67,6 @@ const Homepage = () => {
 
     return (
         <div className="p-3">
-            {/* <GenderReveal /> */}
-
             {isLoading ? (
                 <>
                     <Loader />
