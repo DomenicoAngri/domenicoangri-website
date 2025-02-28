@@ -6,7 +6,7 @@ interface FatalErrorSvgComponentProps {
     className?: string;
 }
 
-const FatalErrorSvgComponent: React.FC<FatalErrorSvgComponentProps> = ({ width = 200, height = 200, className = "" }) => {
+const ErrorSvgComponent: React.FC<FatalErrorSvgComponentProps> = ({ width = 200, height = 200, className = "" }) => {
     return (
         <svg width={width} height={height} viewBox="0 0 392.533 392.533" className={className} xmlns="http://www.w3.org/2000/svg">
             <path
@@ -38,4 +38,4 @@ const FatalErrorSvgComponent: React.FC<FatalErrorSvgComponentProps> = ({ width =
     );
 };
 
-export default FatalErrorSvgComponent;
+export default ErrorSvgComponent;

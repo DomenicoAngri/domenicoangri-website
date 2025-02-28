@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import FatalErrorProps from "./FatalError.types";
-import FatalErrorSvgComponent from "../../assets/svg/FatalErrorSvgComponent";
+import ErrorSvgComponent from "../../assets/svg/ErrorSvgComponent";
 import { motion } from "framer-motion";
 import "./FatalError.css";
 
@@ -26,7 +26,10 @@ import {
 const FatalError = (props: FatalErrorProps) => {
     const { codeError, title, description } = props;
 
-    const siteLanguage = useSelector((state: RootState) => state.language.currentLanguage);
+    // TODO - To fix in the future, when there is a page reload, the language const is lost for the general state.
+    // const siteLanguage = useSelector((state: RootState) => state.language.currentLanguage);
+    const siteLanguage = "en";
+
     const [isShaking, setIsShaking] = useState(false);
 
     useEffect(() => {
@@ -45,7 +48,7 @@ const FatalError = (props: FatalErrorProps) => {
                     animate={isShaking ? { x: [0, -2, 2, -2, 2, 0] } : {}}
                     transition={{ repeat: Infinity, duration: 0.3, ease: "easeInOut" }}
                 >
-                    <FatalErrorSvgComponent width={150} height={150} />
+                    <ErrorSvgComponent width={150} height={150} />
                 </motion.div>
             </div>
 

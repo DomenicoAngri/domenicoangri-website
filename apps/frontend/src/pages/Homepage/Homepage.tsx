@@ -26,7 +26,7 @@ import Loader from "../../components/Loader/Loader";
 // TODO: Mettere i bordi a tutta l'app per non fare azzeccare le scritte al bordo.
 // TODO: Capire cosa fare col marked se non ritorna un valore (non si può mettere stringa vuota nel dangerouslySetInnerHTML).
 // TODO: Capire cosa fare con i campi qualora vuoti (tipo title e footer).
-// TODO: per commit, eliminare dopo.
+// TODO: capire come fare per la lingua inglese o italiano quando avviene errore oppure pagina non trovata.
 
 const Homepage = () => {
     // Get the current site language from global state.
