@@ -427,6 +427,49 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     };
 }
 
+export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
+    collectionName: "invitations";
+    info: {
+        description: "";
+        displayName: "Invitation";
+        pluralName: "invitations";
+        singularName: "invitation";
+    };
+    options: {
+        draftAndPublish: true;
+    };
+    attributes: {
+        attendance: Schema.Attribute.Boolean & Schema.Attribute.Required & Schema.Attribute.DefaultTo<true>;
+        createdAt: Schema.Attribute.DateTime;
+        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        invitationName: Schema.Attribute.String &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetMinMaxLength<{
+                maxLength: 20;
+                minLength: 2;
+            }>;
+        inviteCode: Schema.Attribute.UID &
+            Schema.Attribute.Required &
+            Schema.Attribute.SetMinMaxLength<{
+                maxLength: 16;
+                minLength: 2;
+            }>;
+        locale: Schema.Attribute.String & Schema.Attribute.Private;
+        localizations: Schema.Attribute.Relation<"oneToMany", "api::invitation.invitation"> & Schema.Attribute.Private;
+        numberOfPeople: Schema.Attribute.Integer &
+            Schema.Attribute.SetMinMax<
+                {
+                    max: 10;
+                    min: 1;
+                },
+                number
+            >;
+        publishedAt: Schema.Attribute.DateTime;
+        updatedAt: Schema.Attribute.DateTime;
+        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+    };
+}
+
 export interface PluginContentReleasesRelease extends Struct.CollectionTypeSchema {
     collectionName: "strapi_releases";
     info: {
@@ -833,6 +876,7 @@ declare module "@strapi/strapi" {
             "admin::user": AdminUser;
             "api::header.header": ApiHeaderHeader;
             "api::homepage.homepage": ApiHomepageHomepage;
+            "api::invitation.invitation": ApiInvitationInvitation;
             "plugin::content-releases.release": PluginContentReleasesRelease;
             "plugin::content-releases.release-action": PluginContentReleasesReleaseAction;
             "plugin::i18n.locale": PluginI18NLocale;
