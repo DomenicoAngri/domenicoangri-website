@@ -8,8 +8,8 @@ module.exports = {
     routes: [
         {
             method: "GET",
-            path: "/invitations/verify/:code",
-            handler: "custom-invitation.verifyCode",
+            path: "/invitations/verifyInviteCode/:code",
+            handler: "custom-invitation.verifyInviteCode",
             config: {
                 auth: false, // Accessible without authentication
                 middlewares: [], // Optional custom middlewares
@@ -17,7 +17,7 @@ module.exports = {
         },
         {
             method: "PUT",
-            path: "/invitations/attendance/:code",
+            path: "/invitations/updateAttendance/:code",
             handler: "custom-invitation.updateAttendance",
             config: {
                 auth: false, // Accessible without authentication

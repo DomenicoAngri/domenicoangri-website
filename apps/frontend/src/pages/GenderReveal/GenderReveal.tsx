@@ -1,14 +1,56 @@
 import { useState } from "react";
+import env from "../../config/environmentVariables";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
 import storkBaby from "../../assets/svg/storkBaby.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck, faBaby } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import "./GenderReveal.css";
 
 const GenderReveal = () => {
     const [code, setCode] = useState("");
     const [placeholder, setPlaceholder] = useState("Codice invito...");
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    // Configurazione dell'animazione di tremolio più veloce e stretto
+    const shakeAnimation = {
+        x: [0, -5, 5, -5, 5, -3, 3, 0],
+        transition: { duration: 0.3 },
+    };
+
+    const verifyInviteCode = async () => {
+        // Reset dello stato di errore
+        setError(false);
+        setErrorMessage("");
+
+        try {
+            const response = await axios.get(`${env.apiUrl}/invitations/verifyInviteCode/${code}`);
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+            setError(true);
+
+            // Imposta il messaggio di errore appropriato
+            if (error.response) {
+                // La richiesta è stata effettuata e il server ha risposto con un codice di stato
+                // che non rientra nell'intervallo 2xx
+                if (error.response.status === 404) {
+                    setErrorMessage("Codice non valido");
+                } else {
+                    setErrorMessage("Errore di verifica");
+                }
+            } else if (error.request) {
+                // La richiesta è stata effettuata ma non è stata ricevuta alcuna risposta
+                setErrorMessage("Nessuna risposta dal server");
+            } else {
+                // Si è verificato un errore durante l'impostazione della richiesta
+                setErrorMessage("Errore di connessione");
+            }
+        } finally {
+        }
+    };
 
     return (
         <div className="mainContainer">
@@ -56,54 +98,51 @@ const GenderReveal = () => {
                         Inserisci il codice del tuo invito:
                     </label>
 
-                    {/* <div className="flex items-center justify-center w-full">
-                        <div className="relative flex items-center max-w-xs w-full">
-                            <input
-                                id="inviteCode"
-                                type="text"
-                                // value={code}
-                                // onChange={(e) => setCode(e.target.value)}
-                                // className="w-64 p-2 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                className="w-full p-3 pr-12 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-full text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder={placeholder}
-                                onFocus={() => setPlaceholder("")}
-                                onBlur={(e) => setPlaceholder(e.target.value ? "" : "Codice invito...")}
-                            />
-
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    /* Qui inserisci la chiamata al BE */
-                    /*   }}
-                                className="absolute right-1 h-10 w-10 flex items-center justify-center  hover:bg-pink-300 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                aria-label="Invia codice"
-                            >
-                                <FontAwesomeIcon icon={faCircleCheck} />
-                            </button>
+                    <div className="w-72">
+                        <div className="relative w-full">
+                            <motion.div animate={error ? shakeAnimation : {}} className="w-full relative">
+                                <input
+                                    id="inviteCode"
+                                    type="text"
+                                    className={`w-full p-2 pr-10 border-2 ${error ? "border-pink-300" : "border-gray-300"} text-gray-500 placeholder-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-grey-800`}
+                                    placeholder={placeholder}
+                                    onFocus={() => setPlaceholder("")}
+                                    onBlur={(e) => {
+                                        setPlaceholder(e.target.value ? "" : "Codice invito...");
+                                    }}
+                                    onChange={(e) => {
+                                        setCode(e.target.value);
+                                        if (error) {
+                                            setError(false);
+                                            setErrorMessage("");
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            verifyInviteCode();
+                                        }
+                                    }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => verifyInviteCode()}
+                                    className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center bg-blue-400 rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 mr-1 z-10"
+                                    aria-label="Invia codice"
+                                >
+                                    <FontAwesomeIcon icon={faPaperPlane} />
+                                </button>
+                            </motion.div>
                         </div>
-                    </div> */}
 
-                    <div className="relative w-72">
-                        <input
-                            id="inviteCode"
-                            type="text"
-                            // value={code}
-                            // onChange={(e) => setCode(e.target.value)}
-                            className="w-full p-2 pr-10 border-2 border-gray-300 text-gray-500 placeholder-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder={placeholder}
-                            onFocus={() => setPlaceholder("")}
-                            onBlur={(e) => setPlaceholder(e.target.value ? "" : "Codice invito...")}
-                        />
-                        <button
-                            type="button"
-                            onClick={() => {
-                                /* Qui inserisci la chiamata al BE */
-                            }}
-                            className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center bg-blue-400 rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300 mr-1"
-                            aria-label="Invia codice"
-                        >
-                            <FontAwesomeIcon icon={faBaby} />
-                        </button>
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="text-pink-300 text-sm mt-1 text-left pl-1"
+                            >
+                                {errorMessage}
+                            </motion.div>
+                        )}
                     </div>
                 </motion.div>
             </div>

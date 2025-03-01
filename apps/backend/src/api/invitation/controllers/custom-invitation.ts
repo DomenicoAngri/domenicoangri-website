@@ -15,7 +15,7 @@ const { createCoreController } = require("@strapi/strapi").factories;
 
 module.exports = createCoreController("api::invitation.invitation", ({ strapi }) => ({
     // Method to verify an invitation code.
-    async verifyCode(ctx) {
+    async verifyInviteCode(ctx) {
         const { code } = ctx.params;
 
         try {
@@ -36,6 +36,7 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
                     id: invitation.inviteCode,
                     name: invitation.invitationName,
                     attendance: invitation.attendance,
+                    numberOfPeople: invitation.numberOfPeople,
                 },
             };
         } catch (error) {
@@ -79,6 +80,7 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
                     id: updatedInvitation.inviteCode,
                     name: updatedInvitation.invitationName,
                     attendance: updatedInvitation.attendance,
+                    numberOfPeople: updatedInvitation.numberOfPeople,
                 },
             };
         } catch (error) {
