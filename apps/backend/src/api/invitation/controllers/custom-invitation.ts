@@ -33,8 +33,8 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
             return {
                 success: true,
                 invitation: {
-                    id: invitation.inviteCode,
-                    name: invitation.invitationName,
+                    inviteCode: invitation.inviteCode,
+                    invitationName: invitation.invitationName,
                     attendance: invitation.attendance,
                     numberOfPeople: invitation.numberOfPeople,
                 },
@@ -77,8 +77,8 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
             return {
                 success: true,
                 invitation: {
-                    id: updatedInvitation.inviteCode,
-                    name: updatedInvitation.invitationName,
+                    inviteCode: updatedInvitation.inviteCode,
+                    invitationName: updatedInvitation.invitationName,
                     attendance: updatedInvitation.attendance,
                     numberOfPeople: updatedInvitation.numberOfPeople,
                 },

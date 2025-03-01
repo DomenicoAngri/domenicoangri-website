@@ -9,7 +9,7 @@
 .mainContainer {
     background-color: #2270a0;
     font-family: "fredoka";
-    @apply flex flex-col w-full max-w-full h-screen overflow-x-hidden;
+    @apply flex flex-col w-full max-w-full h-screen overflow-x-hidden p-4 text-center;
 }
 
 .bodyContainer {
