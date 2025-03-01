@@ -2,9 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Step1Props } from "../GenderReveal.types";
+import { Step1InviteCodeEntryProps } from "../GenderReveal.types";
 
-const Step1InviteCodeEntry: React.FC<Step1Props> = ({
+const Step1InviteCodeEntry: React.FC<Step1InviteCodeEntryProps> = ({
     code,
     setCode,
     placeholder,

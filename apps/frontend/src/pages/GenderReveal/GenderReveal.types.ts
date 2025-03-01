@@ -1,5 +1,5 @@
 // Invitation interface.
-export interface InvitationData {
+export interface InvitationDataProps {
     inviteCode: string;
     invitationName: string;
     gender: "M" | "F";
@@ -9,7 +9,7 @@ export interface InvitationData {
 }
 
 // Step 1 entry invite code props.
-export interface Step1Props {
+export interface Step1InviteCodeEntryProps {
     code: string;
     setCode: (code: string) => void;
     placeholder: string;
@@ -21,14 +21,15 @@ export interface Step1Props {
 }
 
 // Step 2 welcome page props.
-export interface Step2Props {
-    invitationData: InvitationData | null;
+export interface Step2WelcomePageProps {
+    invitationData: InvitationDataProps | null;
     goToNextStep: () => void;
     goToPreviousStep: () => void;
 }
 
-// Props per Step3Survey
-export interface Step3Props {
+// Step 3 attendance confirmation props.
+export interface Step3AttendanceConfirmationProps {
+    invitationData: InvitationDataProps | null;
     goToNextStep: () => void;
     goToPreviousStep: () => void;
 }

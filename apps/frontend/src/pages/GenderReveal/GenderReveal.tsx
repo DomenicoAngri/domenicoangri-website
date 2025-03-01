@@ -8,16 +8,18 @@ import "./GenderReveal.css";
 
 import Step1InviteCodeEntry from "./Steps/Step1InviteCodeEntry";
 import Step2WelcomePage from "./Steps/Step2WelcomePage";
-import Step3Attendance from "./Steps/Step3Attendance";
+import Step3AttendanceConfirmation from "./Steps/Step3AttendanceConfirmation";
+import Step4Survey from "./Steps/Step4Survey";
+// import Step5FinalDetails from "./Steps/Step5FinalDetails";
 
-import { InvitationData } from "./GenderReveal.types";
+import { InvitationDataProps } from "./GenderReveal.types";
 import FatalError from "../../components/FatalError/FatalError";
 
 // TODO: fare il made with love.
 // TODO: vedere dove mettere tutte le costanti del progetto.
 // TODO: riorganizzare tutti gli import.
 // TODO: per domani, fare step 3 per la conferma della presenza e fare step 4 per survey e fare step 5 per le informazioni finali.
-// TODO: per domani fare i button come componenti da importare.
+// TODO: capire il problema del BE se non c'è, non carica un cazzo.
 
 const GenderReveal: React.FC = () => {
     const [code, setCode] = useState("");
@@ -26,7 +28,7 @@ const GenderReveal: React.FC = () => {
     const [fatalError, setFatalError] = useState<AxiosError | null>(null);
     const [errorMessage, setErrorMessage] = useState("");
     const [currentStep, setCurrentStep] = useState<number>(1);
-    const [invitationData, setInvitationData] = useState<InvitationData | null>(null);
+    const [invitationData, setInvitationData] = useState<InvitationDataProps | null>(null);
 
     // Useful for the first animation render.
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
@@ -159,7 +161,17 @@ const GenderReveal: React.FC = () => {
 
                             {currentStep === 3 && (
                                 <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                    <Step3Attendance goToNextStep={goToNextStep} goToPreviousStep={goToPreviousStep} />
+                                    <Step3AttendanceConfirmation
+                                        invitationData={invitationData}
+                                        goToPreviousStep={goToPreviousStep}
+                                        goToNextStep={goToNextStep}
+                                    />
+                                </motion.div>
+                            )}
+
+                            {currentStep === 4 && (
+                                <motion.div key="step4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                    <Step4Survey invitationData={invitationData} goToPreviousStep={goToPreviousStep} goToNextStep={goToNextStep} />
                                 </motion.div>
                             )}
                         </AnimatePresence>
