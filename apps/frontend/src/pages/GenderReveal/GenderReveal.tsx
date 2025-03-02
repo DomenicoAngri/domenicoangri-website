@@ -12,7 +12,7 @@ import Step3AttendanceConfirmation from "./Steps/Step3AttendanceConfirmation";
 import Step4Survey from "./Steps/Step4Survey";
 import Step5FinalDetails from "./Steps/Step5FinalDetails";
 
-import { InvitationDataProps } from "./GenderReveal.types";
+import { InvitationDataProps, InvitationSurveyProps } from "./GenderReveal.types";
 import FatalError from "../../components/FatalError/FatalError";
 
 // TODO: fare il made with love.
@@ -29,6 +29,7 @@ const GenderReveal: React.FC = () => {
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [invitationData, setInvitationData] = useState<InvitationDataProps | null>(null);
     const [updateInvitationData, setUpdateInvitationData] = useState<InvitationDataProps | null>(null);
+    const [invitationSurvey, setInvitationSurvey] = useState<InvitationSurveyProps | null>(null);
 
     // Useful for the first animation render.
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
@@ -47,13 +48,19 @@ const GenderReveal: React.FC = () => {
         try {
             // To lower case before sending the request.
             const lowerCaseCode = code.toLowerCase();
-            const response = await axios.get(`${env.apiUrl}/invitations/verifyInviteCode/${lowerCaseCode}`);
+            const responseInvitationData = await axios.get(`${env.apiUrl}/gender-reveal/invitations/verifyInviteCode/${lowerCaseCode}`);
 
             // Save the invitation data response from API.
-            setInvitationData(response.data.invitation);
+            setInvitationData(responseInvitationData.data.invitation);
 
             // Save the invitation data response from API to update after confirmation.
-            setUpdateInvitationData(response.data.invitation);
+            setUpdateInvitationData(responseInvitationData.data.invitation);
+
+            // Retrive data invitation survey for gender.
+            const responseInvitationSurvey = await axios.get(`${env.apiUrl}/invitation-survey`);
+
+            // Save the invitation survey response from API.
+            setInvitationSurvey(responseInvitationSurvey.data.data);
 
             // Go to the next step.
             goToNextStep();
@@ -84,8 +91,36 @@ const GenderReveal: React.FC = () => {
     const updateAttendance = async (finalInvitationData: InvitationDataProps): Promise<void> => {
         try {
             setUpdateInvitationData(finalInvitationData);
+
+            // TODO: risolvere questo problema dell'inizializzazione.
+            let updateInvitationSurvey: InvitationSurveyProps = { maleVotes: 50, femaleVotes: 50, totalVotes: 100 };
+
+            if (invitationSurvey) {
+                updateInvitationSurvey = invitationSurvey;
+
+                if (finalInvitationData.gender === "M") {
+                    updateInvitationSurvey = {
+                        ...updateInvitationSurvey,
+                        maleVotes: updateInvitationSurvey.maleVotes + 1,
+                        femaleVotes: updateInvitationSurvey.femaleVotes - 1,
+                    };
+                } else {
+                    updateInvitationSurvey = {
+                        ...updateInvitationSurvey,
+                        maleVotes: updateInvitationSurvey.maleVotes - 1,
+                        femaleVotes: updateInvitationSurvey.femaleVotes + 1,
+                    };
+                }
+            }
+
+            // Update invitation data.
             const lowerCaseCode = code.toLowerCase();
-            await axios.put(`${env.apiUrl}/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData);
+            await axios.put(`${env.apiUrl}/gender-reveal/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData);
+
+            // TODO: controllare se funziona.
+
+            // Update survey data.
+            await axios.put(`${env.apiUrl}/invitation-survey`, updateInvitationSurvey);
 
             goToNextStep();
         } catch (error) {
@@ -129,7 +164,7 @@ const GenderReveal: React.FC = () => {
             ) : currentStep === 5 ? (
                 <div className="mainContainer">
                     <motion.div key="step5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 3 }}>
-                        <Step5FinalDetails updateInvitationData={updateInvitationData} />
+                        <Step5FinalDetails updateInvitationData={updateInvitationData} updateInvitationSurveyData={invitationSurvey} />
                     </motion.div>
                 </div>
             ) : (

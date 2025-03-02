@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Custom controller for invitation management
+ * Custom controller for invitation management.
  */
 
 import {

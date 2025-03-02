@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, JSX } from "react";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
-import { format } from "date-fns";
-import { it } from "date-fns/locale";
-import axios from "axios";
-import env from "../../../config/environmentVariables";
-import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import Confetti from "react-confetti";
 
-import { Step5FinalDetailsProps } from "../GenderReveal.types";
+import { Step5FinalDetailsProps, SurveyResultsProps, PieDataEntry, CustomizedLabelProps } from "../GenderReveal.types";
 
-// TODO: devo inserire la schermata fianle se la persona non viene devo modificare le scritte.
-// TODO: sondaggio da DB
-// TODO: Modificare la grafica
+// TODO: risolvere problema delle props sopra non usate.
+// TODO: calcolare le percentuali.
 
-interface SurveyResultsProps {
-    boyPercentage: number;
-    girlPercentage: number;
-    totalVotes: number;
-}
-
-const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationData }) => {
-    const [surveyResults, setSurveyResults] = useState<SurveyResultsProps>();
-    const [loading, setLoading] = useState(true);
+const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationData, updateInvitationSurveyData }) => {
+    const [surveyResults, setSurveyResults] = useState<SurveyResultsProps | undefined>(undefined);
+    const [loading, setLoading] = useState<boolean>(true);
     const { width, height } = useWindowSize();
-    const [showConfetti, setShowConfetti] = useState(true);
+    const [showConfetti, setShowConfetti] = useState<boolean>(true);
 
     useEffect(() => {
         // const fetchSurveyResults = async () => {
@@ -48,7 +37,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
         setLoading(false);
         handleSurveyResult();
 
-        // Disattiva i coriandoli dopo 5 secondi
+        // Deactivate confetti animation after 5 seconds.
         const timer = setTimeout(() => {
             setShowConfetti(false);
         }, 5000);
@@ -56,7 +45,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
         return () => clearTimeout(timer);
     }, []);
 
-    const handleSurveyResult = () => {
+    const handleSurveyResult = (): void => {
         setSurveyResults({
             boyPercentage: 70,
             girlPercentage: 30,
@@ -64,8 +53,8 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
         });
     };
 
-    // Dati per il grafico a torta
-    const preparePieData = () => {
+    // Pie chart data.
+    const preparePieData = (): PieDataEntry[] => {
         if (!surveyResults) return [];
 
         return [
@@ -74,10 +63,10 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
         ];
     };
 
-    const pieData = preparePieData();
+    const pieData: PieDataEntry[] = preparePieData();
 
-    // Funzione per renderizzare solo la percentuale all'interno del grafico
-    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    // Percentage into pie chart.
+    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: CustomizedLabelProps): JSX.Element => {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
         const x = cx + radius * Math.cos((-midAngle * Math.PI) / 180);
         const y = cy + radius * Math.sin((-midAngle * Math.PI) / 180);

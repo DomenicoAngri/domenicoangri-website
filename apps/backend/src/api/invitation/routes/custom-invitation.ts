@@ -1,27 +1,27 @@
 "use strict";
 
 /**
- * Custom routes for invitations
+ * Custom routes for invitations.
  */
 
 module.exports = {
     routes: [
         {
             method: "GET",
-            path: "/invitations/verifyInviteCode/:code",
+            path: "/gender-reveal/invitations/verifyInviteCode/:code",
             handler: "custom-invitation.verifyInviteCode",
             config: {
-                auth: false, // Accessible without authentication
-                middlewares: [], // Optional custom middlewares
+                auth: false,
+                middlewares: [],
             },
         },
         {
             method: "PUT",
-            path: "/invitations/updateAttendance/:code",
+            path: "/gender-reveal/invitations/updateAttendance/:code",
             handler: "custom-invitation.updateAttendance",
             config: {
-                auth: false, // Accessible without authentication
-                middlewares: [], // Optional custom middlewares
+                auth: false,
+                middlewares: [],
             },
         },
     ],

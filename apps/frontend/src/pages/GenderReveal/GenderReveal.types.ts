@@ -7,6 +7,12 @@ export interface InvitationDataProps {
     numberOfPeople: number;
 }
 
+export interface InvitationSurveyProps {
+    maleVotes: number;
+    femaleVotes: number;
+    totalVotes: number;
+}
+
 // Step 1 entry invite code props.
 export interface Step1InviteCodeEntryProps {
     code: string;
@@ -44,4 +50,27 @@ export interface Step4SurveyProps {
 // Step 5 final details props.
 export interface Step5FinalDetailsProps {
     updateInvitationData: InvitationDataProps | null;
+    updateInvitationSurveyData: InvitationSurveyProps | null;
+}
+
+export interface SurveyResultsProps {
+    boyPercentage: number;
+    girlPercentage: number;
+    totalVotes: number;
+}
+
+export interface PieDataEntry {
+    name: string;
+    value: number;
+    color: string;
+}
+
+export interface CustomizedLabelProps {
+    cx: number;
+    cy: number;
+    midAngle: number;
+    innerRadius: number;
+    outerRadius: number;
+    percent: number;
+    index: number;
 }
