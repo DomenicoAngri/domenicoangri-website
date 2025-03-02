@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faArrowLeft, faArrowRight, faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
 import { Step4SurveyProps, InvitationDataProps } from "../GenderReveal.types";
 
-const GenderRevealSurvey: React.FC<Step4SurveyProps> = ({ updateInvitationData, setUpdateInvitationData, goToPreviousStep, goToNextStep }) => {
+const Step4Survey: React.FC<Step4SurveyProps> = ({ updateInvitationData, goToPreviousStep, goToNextStep }) => {
     const [selectedGender, setSelectedGender] = useState<string | null>(null);
     const [error, setError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
@@ -31,15 +31,13 @@ const GenderRevealSurvey: React.FC<Step4SurveyProps> = ({ updateInvitationData, 
         const newInvitationData: InvitationDataProps = {
             inviteCode: updateInvitationData?.inviteCode || "",
             invitationName: updateInvitationData?.invitationName || "",
-            attendance: updateInvitationData?.attendance || true,
-            numberOfPeople: updateInvitationData?.numberOfPeople || 1,
+            attendance: updateInvitationData?.attendance && true,
+            numberOfPeople: updateInvitationData?.numberOfPeople ?? 1,
             gender: selectedGender as "M" | "F",
         };
 
-        setUpdateInvitationData(newInvitationData);
-
         // Navigate to next step and pass data
-        goToNextStep();
+        goToNextStep(newInvitationData);
     };
 
     return (
@@ -105,4 +103,4 @@ const GenderRevealSurvey: React.FC<Step4SurveyProps> = ({ updateInvitationData, 
     );
 };
 
-export default GenderRevealSurvey;
+export default Step4Survey;

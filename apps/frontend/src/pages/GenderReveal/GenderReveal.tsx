@@ -10,7 +10,7 @@ import Step1InviteCodeEntry from "./Steps/Step1InviteCodeEntry";
 import Step2WelcomePage from "./Steps/Step2WelcomePage";
 import Step3AttendanceConfirmation from "./Steps/Step3AttendanceConfirmation";
 import Step4Survey from "./Steps/Step4Survey";
-// import Step5FinalDetails from "./Steps/Step5FinalDetails";
+import Step5FinalDetails from "./Steps/Step5FinalDetails";
 
 import { InvitationDataProps } from "./GenderReveal.types";
 import FatalError from "../../components/FatalError/FatalError";
@@ -55,8 +55,6 @@ const GenderReveal: React.FC = () => {
             // Save the invitation data response from API to update after confirmation.
             setUpdateInvitationData(response.data.invitation);
 
-            console.log("UPDATE INVITATION DATA in homepage --> ", response.data.invitation);
-
             // Go to the next step.
             goToNextStep();
         } catch (error) {
@@ -83,6 +81,34 @@ const GenderReveal: React.FC = () => {
         }
     };
 
+    const updateAttendance = async (finalInvitationData: InvitationDataProps): Promise<void> => {
+        try {
+            setUpdateInvitationData(finalInvitationData);
+            const lowerCaseCode = code.toLowerCase();
+            await axios.put(`${env.apiUrl}/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData);
+
+            goToNextStep();
+        } catch (error) {
+            console.error(error);
+            setError(true);
+
+            // Set the correct error message based on the error type.
+            const axiosError = error as AxiosError;
+
+            if (axiosError.response) {
+                if (axiosError.response.status === 404) {
+                    console.error("Codice non valido, riprova!");
+                } else {
+                    console.error("Si è verificato un errore durante la verifica del codice. Prova a ricaricare la pagina.");
+                }
+            } else if (axiosError.request) {
+                console.error("Nessuna risposta dal server");
+            } else {
+                console.error("Errore di connessione");
+            }
+        }
+    };
+
     const goToNextStep = (): void => {
         setCurrentStep((prev) => prev + 1);
     };
@@ -96,14 +122,16 @@ const GenderReveal: React.FC = () => {
         setCurrentStep((prev) => prev - 1);
     };
 
-    const buildUpdateInvitationData = (data: InvitationDataProps): void => {
-        setUpdateInvitationData(data);
-    };
-
     return (
         <>
             {fatalError ? (
                 <FatalError codeError={fatalError.status?.toString()} title={fatalError.code} description={fatalError.message} />
+            ) : currentStep === 5 ? (
+                <div className="mainContainer">
+                    <motion.div key="step5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 3 }}>
+                        <Step5FinalDetails updateInvitationData={updateInvitationData} />
+                    </motion.div>
+                </div>
             ) : (
                 <div className="mainContainer">
                     <motion.div
@@ -178,12 +206,19 @@ const GenderReveal: React.FC = () => {
                             )}
 
                             {currentStep === 4 && (
-                                <motion.div key="step4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                <motion.div
+                                    key="step4"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{
+                                        exit: { duration: 3 },
+                                    }}
+                                >
                                     <Step4Survey
                                         updateInvitationData={updateInvitationData}
-                                        setUpdateInvitationData={setUpdateInvitationData}
                                         goToPreviousStep={goToPreviousStep}
-                                        goToNextStep={goToNextStep}
+                                        goToNextStep={updateAttendance}
                                     />
                                 </motion.div>
                             )}

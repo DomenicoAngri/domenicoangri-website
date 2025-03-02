@@ -436,7 +436,7 @@ export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
         singularName: "invitation";
     };
     options: {
-        draftAndPublish: true;
+        draftAndPublish: false;
     };
     attributes: {
         attendance: Schema.Attribute.Boolean & Schema.Attribute.Required & Schema.Attribute.DefaultTo<true>;
@@ -460,7 +460,7 @@ export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
             Schema.Attribute.SetMinMax<
                 {
                     max: 10;
-                    min: 1;
+                    min: 0;
                 },
                 number
             >;

@@ -37,7 +37,11 @@ export interface Step3AttendanceConfirmationProps {
 // Step 4 survey props.
 export interface Step4SurveyProps {
     updateInvitationData: InvitationDataProps | null;
-    setUpdateInvitationData: (invitationData: InvitationDataProps) => void;
-    goToNextStep: () => void;
+    goToNextStep: (finalInvitationData: InvitationDataProps) => Promise<void>;
     goToPreviousStep: () => void;
+}
+
+// Step 5 final details props.
+export interface Step5FinalDetailsProps {
+    updateInvitationData: InvitationDataProps | null;
 }

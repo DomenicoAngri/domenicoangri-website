@@ -16,12 +16,12 @@ const { createCoreController } = require("@strapi/strapi").factories;
 module.exports = createCoreController("api::invitation.invitation", ({ strapi }) => ({
     // Method to verify an invitation code.
     async verifyInviteCode(ctx) {
-        const { code } = ctx.params;
+        const lowerCaseCode = ctx.params.code.toLowerCase();
 
         try {
             // Find the invitation with the specified code.
             const invitation = await strapi.db.query("api::invitation.invitation").findOne({
-                where: { inviteCode: code },
+                where: { inviteCode: lowerCaseCode },
             });
 
             // If it doesn't exist, return a 404 error.
@@ -37,6 +37,7 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
                     invitationName: invitation.invitationName,
                     attendance: invitation.attendance,
                     numberOfPeople: invitation.numberOfPeople,
+                    gender: invitation.gender,
                 },
             };
         } catch (error) {
@@ -48,18 +49,18 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
 
     // Method to update an invitee's attendance.
     async updateAttendance(ctx) {
-        const { code } = ctx.params;
-        const { attendance, numberOfPeople } = ctx.request.body;
+        const lowerCaseCode = ctx.params.code.toLowerCase();
+        const { gender, attendance, numberOfPeople } = ctx.request.body;
 
         try {
             // Verify that attendance is a boolean.
-            if (typeof attendance !== "boolean") {
+            if (typeof attendance !== "boolean" || typeof gender !== "string" || typeof numberOfPeople !== "number") {
                 return ctx.badRequest(UPDATE_ATTENDANCE_BAD_REQUEST);
             }
 
             // Find the invitation with the specified code.
             const invitation = await strapi.db.query("api::invitation.invitation").findOne({
-                where: { inviteCode: code },
+                where: { inviteCode: lowerCaseCode },
             });
 
             // If it doesn't exist, return a 404 error.
@@ -69,8 +70,8 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
 
             // Update the attendance status.
             const updatedInvitation = await strapi.db.query("api::invitation.invitation").update({
-                where: { id: invitation.inviteCode },
-                data: { attendance, numberOfPeople },
+                where: { inviteCode: invitation.inviteCode },
+                data: { gender, attendance, numberOfPeople },
             });
 
             // Return updated data (no sensitive data).
@@ -81,9 +82,11 @@ module.exports = createCoreController("api::invitation.invitation", ({ strapi })
                     invitationName: updatedInvitation.invitationName,
                     attendance: updatedInvitation.attendance,
                     numberOfPeople: updatedInvitation.numberOfPeople,
+                    gender: updatedInvitation.gender,
                 },
             };
         } catch (error) {
+            console.log(error);
             // In case of error, return a 500 error.
             ctx.internalServerError(UPDATE_ATTENDANCE_CODE_SERVER_ERROR);
         }
