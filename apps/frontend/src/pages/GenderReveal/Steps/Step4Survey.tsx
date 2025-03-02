@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Button from "../../../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faArrowLeft, faArrowRight, faMars, faVenus } from "@fortawesome/free-solid-svg-icons";
-import { Step3AttendanceConfirmationProps } from "../GenderReveal.types";
+import { Step4SurveyProps, InvitationDataProps } from "../GenderReveal.types";
 
-// TODO da modificare le step 3 props
-
-const GenderRevealSurvey: React.FC<Step3AttendanceConfirmationProps> = ({ invitationData, goToPreviousStep, goToNextStep }) => {
+const GenderRevealSurvey: React.FC<Step4SurveyProps> = ({ updateInvitationData, setUpdateInvitationData, goToPreviousStep, goToNextStep }) => {
     const [selectedGender, setSelectedGender] = useState<string | null>(null);
-    const [guestName, setGuestName] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -24,29 +21,22 @@ const GenderRevealSurvey: React.FC<Step3AttendanceConfirmationProps> = ({ invita
         setError(false);
     };
 
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setGuestName(e.target.value);
-        setError(false);
-    };
-
     const handleNextStep = (): void => {
         if (!selectedGender) {
             setError(true);
-            setErrorMessage("Please select boy or girl!");
+            setErrorMessage("Effettua una scelta!");
             return;
         }
 
-        if (!guestName.trim()) {
-            setError(true);
-            setErrorMessage("Please enter your name!");
-            return;
-        }
-
-        // You could pass the survey data to the next step
-        const surveyData = {
-            guestName: guestName,
-            prediction: selectedGender,
+        const newInvitationData: InvitationDataProps = {
+            inviteCode: updateInvitationData?.inviteCode || "",
+            invitationName: updateInvitationData?.invitationName || "",
+            attendance: updateInvitationData?.attendance || true,
+            numberOfPeople: updateInvitationData?.numberOfPeople || 1,
+            gender: selectedGender as "M" | "F",
         };
+
+        setUpdateInvitationData(newInvitationData);
 
         // Navigate to next step and pass data
         goToNextStep();
@@ -65,13 +55,18 @@ const GenderRevealSurvey: React.FC<Step3AttendanceConfirmationProps> = ({ invita
             <div className="flex flex-col items-center justify-center w-full max-w-md">
                 <div className="w-full mb-6">
                     <div className="mb-4">
+                        {updateInvitationData?.attendance ? (
+                            <div>Bene, grazie per la conferma!</div>
+                        ) : (
+                            <div>Ci dispiace tanto che tu non riesca a partecipare 😢</div>
+                        )}
                         <span>Un'ultima curiosità... Secondo te, sarà un maschietto o una femminuccia?!</span>
                     </div>
 
                     <motion.div animate={error ? shakeAnimation : {}} className="flex items-center justify-center w-full gap-4">
                         <button
-                            onClick={() => handleGenderSelection("boy")}
-                            className={`h-16 flex-1 flex items-center justify-center ${
+                            onClick={() => handleGenderSelection("M")}
+                            className={`h-14 flex-1 flex items-center justify-center ${
                                 selectedGender === "boy" ? "bg-blue-500" : "bg-blue-400 hover:bg-blue-500"
                             } text-white rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300`}
                             aria-label="Boy"
@@ -82,8 +77,8 @@ const GenderRevealSurvey: React.FC<Step3AttendanceConfirmationProps> = ({ invita
                         </button>
 
                         <button
-                            onClick={() => handleGenderSelection("girl")}
-                            className={`h-16 flex-1 flex items-center justify-center ${
+                            onClick={() => handleGenderSelection("F")}
+                            className={`h-14 flex-1 flex items-center justify-center ${
                                 selectedGender === "girl" ? "bg-pink-500" : "bg-pink-300 hover:bg-pink-400"
                             } text-white rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-pink-300`}
                             aria-label="Girl"
@@ -95,15 +90,15 @@ const GenderRevealSurvey: React.FC<Step3AttendanceConfirmationProps> = ({ invita
                     </motion.div>
 
                     {error && (
-                        <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-pink-500 text-sm mt-1 text-center">
+                        <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-pink-300 text-sm mt-1 text-center">
                             {errorMessage}
                         </motion.div>
                     )}
                 </div>
 
                 <div className="flex space-x-4 mt-4">
-                    <Button label="Back" color="bg-pink-300" disabled={false} iconSx={faArrowLeft} onClick={goToPreviousStep} />
-                    <Button label="Next" color="bg-blue-400" disabled={false} iconDx={faArrowRight} onClick={handleNextStep} />
+                    <Button label="Indietro" color="bg-pink-300" disabled={false} iconSx={faArrowLeft} onClick={goToPreviousStep} />
+                    <Button label="Avanti" color="bg-blue-400" disabled={false} iconDx={faArrowRight} onClick={handleNextStep} />
                 </div>
             </div>
         </motion.div>

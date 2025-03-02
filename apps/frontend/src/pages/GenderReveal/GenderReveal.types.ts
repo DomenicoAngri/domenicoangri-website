@@ -2,9 +2,8 @@
 export interface InvitationDataProps {
     inviteCode: string;
     invitationName: string;
-    gender: "M" | "F";
-    eventDate: string;
-    attendance: boolean;
+    gender?: "M" | "F";
+    attendance?: boolean;
     numberOfPeople: number;
 }
 
@@ -29,13 +28,16 @@ export interface Step2WelcomePageProps {
 
 // Step 3 attendance confirmation props.
 export interface Step3AttendanceConfirmationProps {
-    invitationData: InvitationDataProps | null;
+    updateInvitationData: InvitationDataProps | null;
+    setUpdateInvitationData: (invitationData: InvitationDataProps) => void;
     goToNextStep: () => void;
     goToPreviousStep: () => void;
 }
 
-// // Props per Step4Reveal
-// export interface Step4Props {
-//     invitationData: InvitationData | null;
-//     userGuess: "M" | "F" | null;
-// }
+// Step 4 survey props.
+export interface Step4SurveyProps {
+    updateInvitationData: InvitationDataProps | null;
+    setUpdateInvitationData: (invitationData: InvitationDataProps) => void;
+    goToNextStep: () => void;
+    goToPreviousStep: () => void;
+}

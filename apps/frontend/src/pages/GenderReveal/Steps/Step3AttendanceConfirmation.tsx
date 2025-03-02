@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Button from "../../../components/Button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faMinus, faPlus, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Step3AttendanceConfirmationProps } from "../GenderReveal.types";
+import { faMinus, faPlus, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { InvitationDataProps, Step3AttendanceConfirmationProps } from "../GenderReveal.types";
 
-const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = ({ invitationData, goToPreviousStep, goToNextStep }) => {
-    const [guestCount, setGuestCount] = useState<number>(1);
-    const [confirmed, setConfirmed] = useState<boolean>(false);
+const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = ({
+    updateInvitationData,
+    setUpdateInvitationData,
+    goToPreviousStep,
+    goToNextStep,
+}) => {
+    const [guestCount, setGuestCount] = useState<number>(updateInvitationData?.numberOfPeople ?? 1);
     const [error, setError] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -34,13 +38,28 @@ const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = 
         }
     };
 
-    const confirmAttendance = (): void => {
-        // setConfirmed(true);
-        // const data: ConfirmationData = {
-        //     confirmed: true,
-        //     guestCount: guestCount,
-        // };
-        // onSubmit(data);
+    const handleNextStep = (): void => {
+        let newInvitationData: InvitationDataProps | null = updateInvitationData;
+
+        // If the guest count is 0, set the attendance to false.
+        if (guestCount === 0) {
+            newInvitationData = {
+                inviteCode: updateInvitationData?.inviteCode || "",
+                invitationName: updateInvitationData?.invitationName || "",
+                attendance: false,
+                numberOfPeople: 0,
+            };
+        } else {
+            newInvitationData = {
+                inviteCode: updateInvitationData?.inviteCode || "",
+                invitationName: updateInvitationData?.invitationName || "",
+                attendance: true,
+                numberOfPeople: guestCount,
+            };
+        }
+
+        setUpdateInvitationData(newInvitationData);
+        goToNextStep();
     };
 
     return (
@@ -93,7 +112,7 @@ const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = 
 
                 <div className="flex space-x-4">
                     <Button label="Indietro" color="bg-pink-300" disabled={false} iconSx={faArrowLeft} onClick={goToPreviousStep} />
-                    <Button label="Avanti" color="bg-blue-400" disabled={false} iconDx={faArrowRight} onClick={goToNextStep} />
+                    <Button label="Avanti" color="bg-blue-400" disabled={false} iconDx={faArrowRight} onClick={handleNextStep} />
                 </div>
             </div>
         </motion.div>

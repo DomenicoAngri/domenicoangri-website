@@ -18,7 +18,6 @@ import FatalError from "../../components/FatalError/FatalError";
 // TODO: fare il made with love.
 // TODO: vedere dove mettere tutte le costanti del progetto.
 // TODO: riorganizzare tutti gli import.
-// TODO: per domani, fare step 3 per la conferma della presenza e fare step 4 per survey e fare step 5 per le informazioni finali.
 // TODO: capire il problema del BE se non c'è, non carica un cazzo.
 
 const GenderReveal: React.FC = () => {
@@ -29,6 +28,7 @@ const GenderReveal: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [invitationData, setInvitationData] = useState<InvitationDataProps | null>(null);
+    const [updateInvitationData, setUpdateInvitationData] = useState<InvitationDataProps | null>(null);
 
     // Useful for the first animation render.
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
@@ -49,10 +49,13 @@ const GenderReveal: React.FC = () => {
             const lowerCaseCode = code.toLowerCase();
             const response = await axios.get(`${env.apiUrl}/invitations/verifyInviteCode/${lowerCaseCode}`);
 
-            console.log("RESPONSE DATA --> ", response.data.invitation);
-
             // Save the invitation data response from API.
             setInvitationData(response.data.invitation);
+
+            // Save the invitation data response from API to update after confirmation.
+            setUpdateInvitationData(response.data.invitation);
+
+            console.log("UPDATE INVITATION DATA in homepage --> ", response.data.invitation);
 
             // Go to the next step.
             goToNextStep();
@@ -91,6 +94,10 @@ const GenderReveal: React.FC = () => {
         }
 
         setCurrentStep((prev) => prev - 1);
+    };
+
+    const buildUpdateInvitationData = (data: InvitationDataProps): void => {
+        setUpdateInvitationData(data);
     };
 
     return (
@@ -162,7 +169,8 @@ const GenderReveal: React.FC = () => {
                             {currentStep === 3 && (
                                 <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                                     <Step3AttendanceConfirmation
-                                        invitationData={invitationData}
+                                        updateInvitationData={updateInvitationData}
+                                        setUpdateInvitationData={setUpdateInvitationData}
                                         goToPreviousStep={goToPreviousStep}
                                         goToNextStep={goToNextStep}
                                     />
@@ -171,7 +179,12 @@ const GenderReveal: React.FC = () => {
 
                             {currentStep === 4 && (
                                 <motion.div key="step4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                    <Step4Survey invitationData={invitationData} goToPreviousStep={goToPreviousStep} goToNextStep={goToNextStep} />
+                                    <Step4Survey
+                                        updateInvitationData={updateInvitationData}
+                                        setUpdateInvitationData={setUpdateInvitationData}
+                                        goToPreviousStep={goToPreviousStep}
+                                        goToNextStep={goToNextStep}
+                                    />
                                 </motion.div>
                             )}
                         </AnimatePresence>
