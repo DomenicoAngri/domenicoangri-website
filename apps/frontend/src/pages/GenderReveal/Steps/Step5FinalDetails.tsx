@@ -91,39 +91,91 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
 
     return (
         <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto">
-            {showConfetti && <Confetti width={width} height={height} recycle={false} />}
+            {updateInvitationData?.attendance === true ? <>{showConfetti && <Confetti width={width} height={height} recycle={false} />}</> : null}
 
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="mb-6">
-                <h2>Tutto fatto! 🥳</h2>
-                <div>Non vediamo l'ora di condividere questo momento speciale con {updateInvitationData?.numberOfPeople === 1 ? "te!" : "voi!"}</div>
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="mb-5">
+                {updateInvitationData?.attendance === false ? (
+                    <div>
+                        <h2 className="defaultMarginBottom">Ci dispiace che tu non possa essere dei nostri 😔</h2>
+                        <div>Se dovessi cambiare idea, puoi utilizzare lo stesso codice di invito per aggiornare la presenza!</div>
+                    </div>
+                ) : (
+                    <div>
+                        <h1 className="defaultMarginBottom">Tutto fatto! 🥳</h1>
+                        <div>
+                            {`Non vediamo l'ora di condividere questo momento speciale con ${updateInvitationData?.numberOfPeople === 1 ? "te!" : "voi!"} 🥰`}
+                        </div>
+                    </div>
+                )}
             </motion.div>
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="bg-white p-6 rounded-lg shadow-md w-full mb-6"
-            >
-                <h3 className="text-xl font-semibold mb-3">Dettagli dell'evento</h3>
-                <div className="mb-2">
-                    <span className="font-medium">Quando:</span> Sabato prossimo
-                </div>
-                <div className="mb-2">
-                    <span className="font-medium">Dove:</span> Al laghetto
-                </div>
+            {updateInvitationData?.attendance === true ? (
+                <>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        className="rounded-2xl shadow-2xl w-full mb-4 p-2"
+                    >
+                        <h2 className="mb-4">Dettagli dell'evento</h2>
+                        <div>
+                            <strong>Quando: </strong>
+                            <span className="italic">Sabato 8 marzo.</span>
+                        </div>
+                        <div>
+                            <strong>A che ora: </strong>
+                            <span className="italic">dalle 13:00.</span>
+                        </div>
+                        <div className="mb-4">
+                            <strong>Dove: </strong>
+                            <span className="italic">al "Laghetto", Via Boscherona, 20900, (Monza).</span>
+                        </div>
+                        <div className="flex flex-col justify-center items-center defaultMarginBottom">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5584.381207453389!2d9.241270676849929!3d45.586712971076125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786b9408a6efa8d%3A0xd0bb19a3a733d42b!2sIl%20Laghetto!5e0!3m2!1sen!2sit!4v1740928671242!5m2!1sen!2sit"
+                                width="300"
+                                height="300"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                    </motion.div>
 
-                <div className="mt-4 p-3 bg-gray-50 rounded-md">
-                    <span className="font-medium">Note:</span> Note addizionali
-                </div>
-            </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        className="rounded-2xl shadow-2xl w-full mb-4 p-2"
+                    >
+                        <div>
+                            <h2 className="defaultMarginBottom">Note 📝</h2>
+                            <div className="defaultMarginBottom">
+                                Ti aspettiamo per condividere un momento speciale, gustando qualcosa insieme prima di scoprire il sesso della piccola
+                                creatura in arrivo!
+                            </div>
+                            <div className="defaultMarginBottom">
+                                L'evento si terrà all'aperto, in un luogo adatto sia ai bambini che agli amici a quattro zampe 🐶, quindi sentiti
+                                libero di portarli con te!
+                            </div>
+                            <div className="defaultMarginBottom">
+                                Speriamo in una giornata calda ☀️ e piacevole, ma potrebbe fare freschino, quindi porta con te un giubbino, giusto per
+                                sicurezza.
+                            </div>
+                            <div className="defaultMarginBottom">Per qualsiasi informazione, contattaci! 😁</div>
+                        </div>
+                    </motion.div>
+                </>
+            ) : null}
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
-                className="bg-white p-6 rounded-lg shadow-md w-full"
+                className="rounded-2xl shadow-2xl w-full mb-4 p-2"
             >
-                <h3 className="text-xl font-semibold mb-4">Cosa pensano gli invitati?</h3>
+                <h2 className="defaultMarginBottom">Cosa pensano gli invitati?</h2>
 
                 {loading ? (
                     <div className="flex justify-center items-center h-40">
@@ -131,7 +183,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                     </div>
                 ) : (
                     <>
-                        <div className="mb-3 text-sm">Finora, ecco come hanno votato i nostri amici e parenti:</div>
+                        <div className="defaultMarginBottom">Finora, ecco come hanno votato i nostri amici e parenti:</div>
 
                         <div className="h-52">
                             <ResponsiveContainer width="100%" height="100%">
@@ -156,18 +208,17 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                             </ResponsiveContainer>
                         </div>
 
-                        <div className="mt-4 text-center text-sm">Totale voti: {surveyResults?.totalVotes || 0}</div>
+                        <div className="text-center text-sm">Totale voti: {surveyResults?.totalVotes || 0}</div>
                     </>
                 )}
             </motion.div>
 
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="mt-6 text-sm text-gray-500"
-            >
-                <p className="mt-2">❤️ Grazie di cuore per esserci ❤️</p>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.5 }} className="defaultMarginBottom">
+                <span>Grazie di cuore per esserci ❤️</span>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.5 }}>
+                <span className="text-gray-400 text-sm">Made with ♥️ by DA.</span>
             </motion.div>
         </div>
     );
