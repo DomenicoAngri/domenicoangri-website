@@ -6,9 +6,6 @@ import Confetti from "react-confetti";
 
 import { Step5FinalDetailsProps, SurveyResultsProps, PieDataEntry, CustomizedLabelProps } from "../GenderReveal.types";
 
-// TODO: risolvere problema delle props sopra non usate.
-// TODO: calcolare le percentuali.
-
 const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationData, updateInvitationSurveyData }) => {
     const [surveyResults, setSurveyResults] = useState<SurveyResultsProps | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
@@ -16,24 +13,6 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
     const [showConfetti, setShowConfetti] = useState<boolean>(true);
 
     useEffect(() => {
-        // const fetchSurveyResults = async () => {
-        //     try {
-        //         // const response = await axios.get(`${env.apiUrl}/invitations/surveyResults`);
-        //         // setSurveyResults(response.data);
-        //         setSurveyResults({
-        //             boyPercentage: 60,
-        //             girlPercentage: 40,
-        //             totalVotes: 100,
-        //         });
-        //         setLoading(false);
-        //     } catch (error) {
-        //         console.error("Errore nel caricamento dei risultati:", error);
-        //         setLoading(false);
-        //     }
-        // };
-
-        // fetchSurveyResults();
-
         setLoading(false);
         handleSurveyResult();
 
@@ -46,11 +25,13 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
     }, []);
 
     const handleSurveyResult = (): void => {
-        setSurveyResults({
-            boyPercentage: 70,
-            girlPercentage: 30,
-            totalVotes: 100,
-        });
+        if (updateInvitationSurveyData) {
+            setSurveyResults({
+                boyPercentage: Math.ceil((updateInvitationSurveyData?.maleVotes / updateInvitationSurveyData?.totalVotes) * 100),
+                girlPercentage: Math.floor((updateInvitationSurveyData?.femaleVotes / updateInvitationSurveyData?.totalVotes) * 100),
+                totalVotes: updateInvitationSurveyData.totalVotes,
+            });
+        }
     };
 
     // Pie chart data.
@@ -58,8 +39,8 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
         if (!surveyResults) return [];
 
         return [
-            { name: "Maschio", value: surveyResults.boyPercentage, color: "#60A5FA" }, // text-blue-400
-            { name: "Femmina", value: surveyResults.girlPercentage, color: "#F9A8D4" }, // text-pink-300
+            { name: "Maschio", value: surveyResults.boyPercentage, color: "#60A5FA" },
+            { name: "Femmina", value: surveyResults.girlPercentage, color: "#F9A8D4" },
         ];
     };
 

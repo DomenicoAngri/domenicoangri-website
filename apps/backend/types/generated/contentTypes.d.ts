@@ -489,6 +489,12 @@ export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
         attendance: Schema.Attribute.Boolean & Schema.Attribute.Required & Schema.Attribute.DefaultTo<true>;
         createdAt: Schema.Attribute.DateTime;
         createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
+        gender: Schema.Attribute.String &
+            Schema.Attribute.SetMinMaxLength<{
+                maxLength: 1;
+                minLength: 1;
+            }> &
+            Schema.Attribute.DefaultTo<"M">;
         invitationName: Schema.Attribute.String &
             Schema.Attribute.Required &
             Schema.Attribute.SetMinMaxLength<{

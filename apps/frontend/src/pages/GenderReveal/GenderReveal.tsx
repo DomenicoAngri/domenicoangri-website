@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import axios, { AxiosError } from "axios";
 import env from "../../config/environmentVariables";
-import axios, { AxiosError, AxiosResponse } from "axios";
 import Lottie from "lottie-react";
 import { motion, AnimatePresence } from "framer-motion";
 import storkBaby from "../../assets/svg/storkBaby.json";
-import "./GenderReveal.css";
 
 import Step1InviteCodeEntry from "./Steps/Step1InviteCodeEntry";
 import Step2WelcomePage from "./Steps/Step2WelcomePage";
@@ -15,10 +14,10 @@ import Step5FinalDetails from "./Steps/Step5FinalDetails";
 import { InvitationDataProps, InvitationSurveyProps } from "./GenderReveal.types";
 import FatalError from "../../components/FatalError/FatalError";
 
-// TODO: fare il made with love.
-// TODO: vedere dove mettere tutte le costanti del progetto.
-// TODO: riorganizzare tutti gli import.
-// TODO: capire il problema del BE se non c'è, non carica un cazzo.
+import "./GenderReveal.css";
+
+// TODO: Set all phrases const into consts file.
+// TODO: if BE not working, think what to do.
 
 const GenderReveal: React.FC = () => {
     const [code, setCode] = useState("");
@@ -30,6 +29,7 @@ const GenderReveal: React.FC = () => {
     const [invitationData, setInvitationData] = useState<InvitationDataProps | null>(null);
     const [updateInvitationData, setUpdateInvitationData] = useState<InvitationDataProps | null>(null);
     const [invitationSurvey, setInvitationSurvey] = useState<InvitationSurveyProps | null>(null);
+    const [updateInvitationSurvey, setUpdateInvitationSurvey] = useState<InvitationSurveyProps | null>(null);
 
     // Useful for the first animation render.
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
@@ -92,23 +92,24 @@ const GenderReveal: React.FC = () => {
         try {
             setUpdateInvitationData(finalInvitationData);
 
-            // TODO: risolvere questo problema dell'inizializzazione.
-            let updateInvitationSurvey: InvitationSurveyProps = { maleVotes: 50, femaleVotes: 50, totalVotes: 100 };
+            let updateInvitationSurvey: InvitationSurveyProps | null = null;
 
             if (invitationSurvey) {
                 updateInvitationSurvey = invitationSurvey;
 
                 if (finalInvitationData.gender === "M") {
                     updateInvitationSurvey = {
-                        ...updateInvitationSurvey,
+                        // ...updateInvitationSurvey,
                         maleVotes: updateInvitationSurvey.maleVotes + 1,
                         femaleVotes: updateInvitationSurvey.femaleVotes - 1,
+                        totalVotes: updateInvitationSurvey.totalVotes,
                     };
                 } else {
                     updateInvitationSurvey = {
-                        ...updateInvitationSurvey,
+                        // ...updateInvitationSurvey,
                         maleVotes: updateInvitationSurvey.maleVotes - 1,
                         femaleVotes: updateInvitationSurvey.femaleVotes + 1,
+                        totalVotes: updateInvitationSurvey.totalVotes,
                     };
                 }
             }
@@ -117,10 +118,11 @@ const GenderReveal: React.FC = () => {
             const lowerCaseCode = code.toLowerCase();
             await axios.put(`${env.apiUrl}/gender-reveal/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData);
 
-            // TODO: controllare se funziona.
+            console.log("UPDATE SURVEY ---> ", updateInvitationSurvey);
 
             // Update survey data.
-            await axios.put(`${env.apiUrl}/invitation-survey`, updateInvitationSurvey);
+            await axios.put(`${env.apiUrl}/invitation-survey`, { data: updateInvitationSurvey });
+            setUpdateInvitationSurvey(updateInvitationSurvey);
 
             goToNextStep();
         } catch (error) {
@@ -164,7 +166,7 @@ const GenderReveal: React.FC = () => {
             ) : currentStep === 5 ? (
                 <div className="mainContainer">
                     <motion.div key="step5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 3 }}>
-                        <Step5FinalDetails updateInvitationData={updateInvitationData} updateInvitationSurveyData={invitationSurvey} />
+                        <Step5FinalDetails updateInvitationData={updateInvitationData} updateInvitationSurveyData={updateInvitationSurvey} />
                     </motion.div>
                 </div>
             ) : (
