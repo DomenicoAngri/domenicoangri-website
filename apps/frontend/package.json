@@ -1,7 +1,7 @@
 {
     "name": "domenico-angri-personal-website-frontend",
     "private": true,
-    "version": "1.2.8",
+    "version": "1.2.9",
     "type": "module",
     "description": "Domenico Angri personal website frontend with react + vite + tailwind.",
     "scripts": {

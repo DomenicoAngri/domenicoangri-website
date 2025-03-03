@@ -24,11 +24,6 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
     useEffect(() => {
         handleSurveyResult();
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-
         document.body.style.overflow = "auto";
         document.body.style["WebkitOverflowScrolling" as any] = "touch";
 
@@ -127,7 +122,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
             ) : fatalError ? (
                 <FatalError codeError={fatalError.status?.toString()} title={fatalError.code} description={fatalError.message} />
             ) : (
-                <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto pb-10">
+                <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto pt-12 pb-12">
                     {updateInvitationData?.attendance === true ? (
                         <>{showConfetti && <Confetti width={width} height={height} recycle={false} />}</>
                     ) : null}
