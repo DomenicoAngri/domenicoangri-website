@@ -158,7 +158,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                                     <strong>A che ora: </strong>
                                     <span className="italic">dalle 13:00.</span>
                                 </div>
-                                <div className="mb-6">
+                                <div className="mb-7">
                                     <strong>Dove: </strong>
                                     <span className="italic">al "Laghetto", Via Boscherona, 20900, (Monza).</span>
                                 </div>
@@ -239,14 +239,16 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                         </>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1, duration: 0.5 }}
-                        className="defaultMarginBottom"
-                    >
-                        <span>Grazie di cuore per esserci ❤️</span>
-                    </motion.div>
+                    {updateInvitationData?.attendance === true ? (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1, duration: 0.5 }}
+                            className="defaultMarginBottom"
+                        >
+                            <span>Grazie di cuore per esserci ❤️</span>
+                        </motion.div>
+                    ) : null}
 
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.5 }}>
                         <span className="text-gray-400 text-sm">Made with ♥️ by DA.</span>

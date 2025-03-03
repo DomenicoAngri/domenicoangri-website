@@ -19,6 +19,8 @@ import "./GenderReveal.css";
 
 // TODO: Set all phrases const into consts file.
 
+// todo meta og per preview, ancora qualche spazio
+
 const GenderReveal: React.FC = () => {
     const [code, setCode] = useState("");
     const [placeholder, setPlaceholder] = useState("Codice invito...");
@@ -47,8 +49,6 @@ const GenderReveal: React.FC = () => {
         }
 
         try {
-            setIsLoading(true);
-
             // To lower case before sending the request.
             const lowerCaseCode = code.toLowerCase();
             const responseInvitationData = await axios.get(`${env.apiUrl}/gender-reveal/invitations/verifyInviteCode/${lowerCaseCode}`, {
@@ -88,8 +88,6 @@ const GenderReveal: React.FC = () => {
                 console.error("Errore di connessione");
                 setFatalError(axiosError);
             }
-        } finally {
-            setIsLoading(false);
         }
     };
 
