@@ -1,6 +1,6 @@
 {
     "name": "domenico-angri-personal-website-backend",
-    "version": "0.1.0",
+    "version": "1.0.2",
     "private": true,
     "description": "Domenico Angri personal website strapi cms.",
     "scripts": {

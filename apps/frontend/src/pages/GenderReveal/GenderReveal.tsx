@@ -13,11 +13,14 @@ import Step5FinalDetails from "./Steps/Step5FinalDetails";
 
 import { InvitationDataProps } from "./GenderReveal.types";
 import FatalError from "../../components/FatalError/FatalError";
+import Loader from "../../components/Loader/Loader";
 
 import "./GenderReveal.css";
 
 // TODO: Set all phrases const into consts file.
-// TODO: if BE not working, think what to do.
+
+// TODO problema scroll alla fine, problema salvataggio dei cookie deve sempre essere reset. problema ultima pagina si deve vedere da su
+// TODO problema della selezione boy e girl
 
 const GenderReveal: React.FC = () => {
     const [code, setCode] = useState("");
@@ -28,6 +31,9 @@ const GenderReveal: React.FC = () => {
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [invitationData, setInvitationData] = useState<InvitationDataProps | null>(null);
     const [updateInvitationData, setUpdateInvitationData] = useState<InvitationDataProps | null>(null);
+
+    // This state is useful to show a loading spinner when the page is loading.
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     // Useful for the first animation render.
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
@@ -44,9 +50,17 @@ const GenderReveal: React.FC = () => {
         }
 
         try {
+            setIsLoading(true);
+
             // To lower case before sending the request.
             const lowerCaseCode = code.toLowerCase();
-            const responseInvitationData = await axios.get(`${env.apiUrl}/gender-reveal/invitations/verifyInviteCode/${lowerCaseCode}`);
+            const responseInvitationData = await axios.get(`${env.apiUrl}/gender-reveal/invitations/verifyInviteCode/${lowerCaseCode}`, {
+                headers: {
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    Pragma: "no-cache",
+                    Expires: "0",
+                },
+            });
 
             // Save the invitation data response from API.
             setInvitationData(responseInvitationData.data.invitation);
@@ -77,16 +91,25 @@ const GenderReveal: React.FC = () => {
                 console.error("Errore di connessione");
                 setFatalError(axiosError);
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     const updateAttendance = async (finalInvitationData: InvitationDataProps): Promise<void> => {
         try {
+            setIsLoading(true);
             setUpdateInvitationData(finalInvitationData);
 
             // Update invitation data.
             const lowerCaseCode = code.toLowerCase();
-            await axios.put(`${env.apiUrl}/gender-reveal/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData);
+            await axios.put(`${env.apiUrl}/gender-reveal/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData, {
+                headers: {
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    Pragma: "no-cache",
+                    Expires: "0",
+                },
+            });
 
             goToNextStep();
         } catch (error) {
@@ -98,15 +121,20 @@ const GenderReveal: React.FC = () => {
 
             if (axiosError.response) {
                 if (axiosError.response.status === 404) {
-                    console.error("Codice non valido, riprova!");
+                    setErrorMessage("Codice non valido, riprova!");
                 } else {
                     console.error("Si è verificato un errore durante la verifica del codice. Prova a ricaricare la pagina.");
+                    setFatalError(axiosError);
                 }
             } else if (axiosError.request) {
                 console.error("Nessuna risposta dal server");
+                setFatalError(axiosError);
             } else {
                 console.error("Errore di connessione");
+                setFatalError(axiosError);
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -169,61 +197,65 @@ const GenderReveal: React.FC = () => {
                             SARÀ <span className="text-blue-400">LUI</span> O SARÀ <span className="text-pink-300">LEI</span>?!
                         </motion.h1>
 
-                        <AnimatePresence mode="wait">
-                            {currentStep === 1 && (
-                                <motion.div key="step1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                    <Step1InviteCodeEntry
-                                        code={code}
-                                        setCode={setCode}
-                                        placeholder={placeholder}
-                                        setPlaceholder={setPlaceholder}
-                                        error={error}
-                                        errorMessage={errorMessage}
-                                        verifyInviteCode={verifyInviteCode}
-                                        isInitialLoad={isInitialLoad}
-                                    />
-                                </motion.div>
-                            )}
+                        {isLoading ? (
+                            <Loader />
+                        ) : (
+                            <AnimatePresence mode="wait">
+                                {currentStep === 1 && (
+                                    <motion.div key="step1" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                        <Step1InviteCodeEntry
+                                            code={code}
+                                            setCode={setCode}
+                                            placeholder={placeholder}
+                                            setPlaceholder={setPlaceholder}
+                                            error={error}
+                                            errorMessage={errorMessage}
+                                            verifyInviteCode={verifyInviteCode}
+                                            isInitialLoad={isInitialLoad}
+                                        />
+                                    </motion.div>
+                                )}
 
-                            {currentStep === 2 && (
-                                <motion.div key="step2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                    <Step2WelcomePage
-                                        invitationData={invitationData}
-                                        goToNextStep={goToNextStep}
-                                        goToPreviousStep={goToPreviousStep}
-                                    />
-                                </motion.div>
-                            )}
+                                {currentStep === 2 && (
+                                    <motion.div key="step2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                        <Step2WelcomePage
+                                            invitationData={invitationData}
+                                            goToNextStep={goToNextStep}
+                                            goToPreviousStep={goToPreviousStep}
+                                        />
+                                    </motion.div>
+                                )}
 
-                            {currentStep === 3 && (
-                                <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                                    <Step3AttendanceConfirmation
-                                        updateInvitationData={updateInvitationData}
-                                        setUpdateInvitationData={setUpdateInvitationData}
-                                        goToPreviousStep={goToPreviousStep}
-                                        goToNextStep={goToNextStep}
-                                    />
-                                </motion.div>
-                            )}
+                                {currentStep === 3 && (
+                                    <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                        <Step3AttendanceConfirmation
+                                            updateInvitationData={updateInvitationData}
+                                            setUpdateInvitationData={setUpdateInvitationData}
+                                            goToPreviousStep={goToPreviousStep}
+                                            goToNextStep={goToNextStep}
+                                        />
+                                    </motion.div>
+                                )}
 
-                            {currentStep === 4 && (
-                                <motion.div
-                                    key="step4"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{
-                                        exit: { duration: 3 },
-                                    }}
-                                >
-                                    <Step4Survey
-                                        updateInvitationData={updateInvitationData}
-                                        goToPreviousStep={goToPreviousStep}
-                                        goToNextStep={updateAttendance}
-                                    />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                                {currentStep === 4 && (
+                                    <motion.div
+                                        key="step4"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{
+                                            exit: { duration: 3 },
+                                        }}
+                                    >
+                                        <Step4Survey
+                                            updateInvitationData={updateInvitationData}
+                                            goToPreviousStep={goToPreviousStep}
+                                            goToNextStep={updateAttendance}
+                                        />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        )}
                     </div>
                 </div>
             )}
