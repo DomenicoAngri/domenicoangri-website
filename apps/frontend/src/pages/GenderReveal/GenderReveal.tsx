@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
+import { Helmet } from "react-helmet";
 import env from "../../config/environmentVariables";
 import Lottie from "lottie-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -148,6 +149,19 @@ const GenderReveal: React.FC = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Gender Reveal Event</title>
+                <meta name="description" content="Invito ufficiale per il Gender Reveal di Domenico e Laura" />
+                <meta property="og:title" content="Gender Reveal Event" />
+                <meta property="og:description" content="Invito ufficiale per il Gender Reveal di Domenico e Laura" />
+                <meta property="og:image" content="https://www.domenicoangri.it/share-images/genderReveal.png" />
+                <meta property="og:url" content="https://www.domenicoangri.it/gender-reveal" />
+                <meta property="og:type" content="website" />
+
+                {/* Meta tag specifici per WhatsApp */}
+                <meta property="og:site_name" content="Gender Reveal Event" />
+                <meta property="og:locale" content="it_IT" />
+            </Helmet>
             {fatalError ? (
                 <FatalError codeError={fatalError.status?.toString()} title={fatalError.code} description={fatalError.message} />
             ) : currentStep === 5 ? (
