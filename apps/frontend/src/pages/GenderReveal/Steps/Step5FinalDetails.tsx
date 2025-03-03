@@ -22,26 +22,22 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
     const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     useEffect(() => {
+        console.log("-- use effect step 5 inizio --");
         handleSurveyResult();
-
-        document.body.style.overflow = "auto";
-        document.body.style["WebkitOverflowScrolling" as any] = "touch";
 
         // Deactivate confetti animation after 5 seconds.
         const timer = setTimeout(() => {
             setShowConfetti(false);
         }, 5000);
 
-        return () => {
-            clearTimeout(timer);
-            document.body.style.overflow = "";
-            document.body.style["WebkitOverflowScrolling" as any] = "";
-        };
+        return () => clearTimeout(timer);
     }, []);
 
     const handleSurveyResult = async (): Promise<void> => {
         try {
+            console.log("sto in handle survey");
             setIsLoading(true);
+            console.log("loading = true");
 
             const response = await axios.get(`${env.apiUrl}/invitations/`, {
                 headers: {
@@ -52,10 +48,15 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
             });
 
             const guestList: InvitationDataProps[] = response.data.data;
+            console.log("GUEST LIST --> ", guestList);
 
             const maleVotes = countGender(guestList, "M");
             const femaleVotes = countGender(guestList, "F");
             const totalVotes = guestList.filter((guest) => guest.gender !== null && guest.gender !== undefined).length;
+
+            console.log("male votes --> ", maleVotes);
+            console.log("female votes --> ", femaleVotes);
+            console.log("total votes --> ", totalVotes);
 
             setSurveyResults({
                 boyPercentage: Math.ceil((maleVotes / totalVotes) * 100),
