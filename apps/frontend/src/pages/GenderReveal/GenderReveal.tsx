@@ -19,9 +19,6 @@ import "./GenderReveal.css";
 
 // TODO: Set all phrases const into consts file.
 
-// TODO problema scroll alla fine, problema salvataggio dei cookie deve sempre essere reset. problema ultima pagina si deve vedere da su
-// TODO problema della selezione boy e girl
-
 const GenderReveal: React.FC = () => {
     const [code, setCode] = useState("");
     const [placeholder, setPlaceholder] = useState("Codice invito...");

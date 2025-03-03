@@ -24,12 +24,24 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
     useEffect(() => {
         handleSurveyResult();
 
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+
+        document.body.style.overflow = "auto";
+        document.body.style["WebkitOverflowScrolling" as any] = "touch";
+
         // Deactivate confetti animation after 5 seconds.
         const timer = setTimeout(() => {
             setShowConfetti(false);
         }, 5000);
 
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+            document.body.style.overflow = "";
+            document.body.style["WebkitOverflowScrolling" as any] = "";
+        };
     }, []);
 
     const handleSurveyResult = async (): Promise<void> => {
@@ -115,7 +127,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
             ) : fatalError ? (
                 <FatalError codeError={fatalError.status?.toString()} title={fatalError.code} description={fatalError.message} />
             ) : (
-                <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto">
+                <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto pb-10">
                     {updateInvitationData?.attendance === true ? (
                         <>{showConfetti && <Confetti width={width} height={height} recycle={false} />}</>
                     ) : null}

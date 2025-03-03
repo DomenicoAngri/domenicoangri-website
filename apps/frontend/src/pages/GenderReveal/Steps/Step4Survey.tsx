@@ -64,7 +64,7 @@ const Step4Survey: React.FC<Step4SurveyProps> = ({ updateInvitationData, goToPre
                     <motion.div animate={error ? shakeAnimation : {}} className="flex items-center justify-center w-full gap-4">
                         <button
                             onClick={() => handleGenderSelection("M")}
-                            className={`h-16 flex-1 flex items-center justify-center ${
+                            className={`h-24 flex-1 flex items-center justify-center ${
                                 selectedGender === "M" ? "bg-blue-500" : "bg-blue-400 hover:bg-blue-500"
                             } text-white rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300`}
                             aria-label="Boy"
@@ -76,7 +76,7 @@ const Step4Survey: React.FC<Step4SurveyProps> = ({ updateInvitationData, goToPre
 
                         <button
                             onClick={() => handleGenderSelection("F")}
-                            className={`h-16 flex-1 flex items-center justify-center ${
+                            className={`h-24 flex-1 flex items-center justify-center ${
                                 selectedGender === "F" ? "bg-pink-500" : "bg-pink-300 hover:bg-pink-400"
                             } text-white rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-pink-300`}
                             aria-label="Girl"
