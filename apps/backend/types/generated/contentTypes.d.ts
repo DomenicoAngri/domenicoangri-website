@@ -427,53 +427,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     };
 }
 
-export interface ApiInvitationSurveyInvitationSurvey extends Struct.SingleTypeSchema {
-    collectionName: "invitation_surveys";
-    info: {
-        displayName: "Invitation survey";
-        pluralName: "invitation-surveys";
-        singularName: "invitation-survey";
-    };
-    options: {
-        draftAndPublish: false;
-    };
-    attributes: {
-        createdAt: Schema.Attribute.DateTime;
-        createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-        femaleVotes: Schema.Attribute.Integer &
-            Schema.Attribute.Required &
-            Schema.Attribute.SetMinMax<
-                {
-                    max: 100;
-                    min: 0;
-                },
-                number
-            >;
-        locale: Schema.Attribute.String & Schema.Attribute.Private;
-        localizations: Schema.Attribute.Relation<"oneToMany", "api::invitation-survey.invitation-survey"> & Schema.Attribute.Private;
-        maleVotes: Schema.Attribute.Integer &
-            Schema.Attribute.Required &
-            Schema.Attribute.SetMinMax<
-                {
-                    max: 100;
-                    min: 0;
-                },
-                number
-            >;
-        publishedAt: Schema.Attribute.DateTime;
-        totalVotes: Schema.Attribute.Integer &
-            Schema.Attribute.Required &
-            Schema.Attribute.SetMinMax<
-                {
-                    min: 0;
-                },
-                number
-            >;
-        updatedAt: Schema.Attribute.DateTime;
-        updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
-    };
-}
-
 export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
     collectionName: "invitations";
     info: {
@@ -486,15 +439,14 @@ export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
         draftAndPublish: false;
     };
     attributes: {
-        attendance: Schema.Attribute.Boolean & Schema.Attribute.Required & Schema.Attribute.DefaultTo<true>;
+        attendance: Schema.Attribute.Boolean;
         createdAt: Schema.Attribute.DateTime;
         createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> & Schema.Attribute.Private;
         gender: Schema.Attribute.String &
             Schema.Attribute.SetMinMaxLength<{
                 maxLength: 1;
                 minLength: 1;
-            }> &
-            Schema.Attribute.DefaultTo<"M">;
+            }>;
         invitationName: Schema.Attribute.String &
             Schema.Attribute.Required &
             Schema.Attribute.SetMinMaxLength<{
@@ -929,7 +881,6 @@ declare module "@strapi/strapi" {
             "admin::user": AdminUser;
             "api::header.header": ApiHeaderHeader;
             "api::homepage.homepage": ApiHomepageHomepage;
-            "api::invitation-survey.invitation-survey": ApiInvitationSurveyInvitationSurvey;
             "api::invitation.invitation": ApiInvitationInvitation;
             "plugin::content-releases.release": PluginContentReleasesRelease;
             "plugin::content-releases.release-action": PluginContentReleasesReleaseAction;

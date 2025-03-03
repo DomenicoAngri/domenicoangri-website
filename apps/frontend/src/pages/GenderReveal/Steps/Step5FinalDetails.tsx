@@ -1,12 +1,15 @@
 import React, { useEffect, useState, JSX } from "react";
+import axios from "axios";
+import env from "../../../config/environmentVariables";
+import { SurveyResultsProps } from "../GenderReveal.types";
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 
-import { Step5FinalDetailsProps, SurveyResultsProps, PieDataEntry, CustomizedLabelProps } from "../GenderReveal.types";
+import { Step5FinalDetailsProps, PieDataEntry, CustomizedLabelProps, InvitationDataProps } from "../GenderReveal.types";
 
-const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationData, updateInvitationSurveyData }) => {
+const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationData }) => {
     const [surveyResults, setSurveyResults] = useState<SurveyResultsProps | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(true);
     const { width, height } = useWindowSize();
@@ -24,14 +27,27 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
         return () => clearTimeout(timer);
     }, []);
 
-    const handleSurveyResult = (): void => {
-        if (updateInvitationSurveyData) {
+    const handleSurveyResult = async (): Promise<void> => {
+        try {
+            const response = await axios.get(`${env.apiUrl}/invitations/`);
+            const guestList: InvitationDataProps[] = response.data.data;
+
+            const maleVotes = countGender(guestList, "M");
+            const femaleVotes = countGender(guestList, "F");
+            const totalVotes = guestList.filter((guest) => guest.gender !== null && guest.gender !== undefined).length;
+
             setSurveyResults({
-                boyPercentage: Math.ceil((updateInvitationSurveyData?.maleVotes / updateInvitationSurveyData?.totalVotes) * 100),
-                girlPercentage: Math.floor((updateInvitationSurveyData?.femaleVotes / updateInvitationSurveyData?.totalVotes) * 100),
-                totalVotes: updateInvitationSurveyData.totalVotes,
+                boyPercentage: Math.ceil((maleVotes / totalVotes) * 100),
+                girlPercentage: Math.floor((femaleVotes / totalVotes) * 100),
+                totalVotes: totalVotes,
             });
+        } catch (error) {
+            console.error(error);
         }
+    };
+
+    const countGender = (guestList: InvitationDataProps[], gender: string): number => {
+        return guestList.filter((guest) => guest.gender === gender).length;
     };
 
     // Pie chart data.

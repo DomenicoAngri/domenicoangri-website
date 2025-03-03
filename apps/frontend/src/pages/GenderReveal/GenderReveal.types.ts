@@ -7,12 +7,6 @@ export interface InvitationDataProps {
     numberOfPeople: number;
 }
 
-export interface InvitationSurveyProps {
-    maleVotes: number;
-    femaleVotes: number;
-    totalVotes: number;
-}
-
 // Step 1 entry invite code props.
 export interface Step1InviteCodeEntryProps {
     code: string;
@@ -50,7 +44,6 @@ export interface Step4SurveyProps {
 // Step 5 final details props.
 export interface Step5FinalDetailsProps {
     updateInvitationData: InvitationDataProps | null;
-    updateInvitationSurveyData: InvitationSurveyProps | null;
 }
 
 export interface SurveyResultsProps {

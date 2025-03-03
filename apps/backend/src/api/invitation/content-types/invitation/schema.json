@@ -26,8 +26,7 @@
     },
     "attendance": {
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": false
     },
     "numberOfPeople": {
       "type": "integer",
@@ -37,7 +36,6 @@
     },
     "gender": {
       "type": "string",
-      "default": "M",
       "maxLength": 1,
       "minLength": 1
     }

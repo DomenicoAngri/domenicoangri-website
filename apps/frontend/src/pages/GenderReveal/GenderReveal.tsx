@@ -11,7 +11,7 @@ import Step3AttendanceConfirmation from "./Steps/Step3AttendanceConfirmation";
 import Step4Survey from "./Steps/Step4Survey";
 import Step5FinalDetails from "./Steps/Step5FinalDetails";
 
-import { InvitationDataProps, InvitationSurveyProps } from "./GenderReveal.types";
+import { InvitationDataProps } from "./GenderReveal.types";
 import FatalError from "../../components/FatalError/FatalError";
 
 import "./GenderReveal.css";
@@ -28,8 +28,6 @@ const GenderReveal: React.FC = () => {
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [invitationData, setInvitationData] = useState<InvitationDataProps | null>(null);
     const [updateInvitationData, setUpdateInvitationData] = useState<InvitationDataProps | null>(null);
-    const [invitationSurvey, setInvitationSurvey] = useState<InvitationSurveyProps | null>(null);
-    const [updateInvitationSurvey, setUpdateInvitationSurvey] = useState<InvitationSurveyProps | null>(null);
 
     // Useful for the first animation render.
     const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
@@ -55,12 +53,6 @@ const GenderReveal: React.FC = () => {
 
             // Save the invitation data response from API to update after confirmation.
             setUpdateInvitationData(responseInvitationData.data.invitation);
-
-            // Retrive data invitation survey for gender.
-            const responseInvitationSurvey = await axios.get(`${env.apiUrl}/invitation-survey`);
-
-            // Save the invitation survey response from API.
-            setInvitationSurvey(responseInvitationSurvey.data.data);
 
             // Go to the next step.
             goToNextStep();
@@ -92,37 +84,9 @@ const GenderReveal: React.FC = () => {
         try {
             setUpdateInvitationData(finalInvitationData);
 
-            let updateInvitationSurvey: InvitationSurveyProps | null = null;
-
-            if (invitationSurvey) {
-                updateInvitationSurvey = invitationSurvey;
-
-                if (finalInvitationData.gender === "M") {
-                    updateInvitationSurvey = {
-                        // ...updateInvitationSurvey,
-                        maleVotes: updateInvitationSurvey.maleVotes + 1,
-                        femaleVotes: updateInvitationSurvey.femaleVotes - 1,
-                        totalVotes: updateInvitationSurvey.totalVotes,
-                    };
-                } else {
-                    updateInvitationSurvey = {
-                        // ...updateInvitationSurvey,
-                        maleVotes: updateInvitationSurvey.maleVotes - 1,
-                        femaleVotes: updateInvitationSurvey.femaleVotes + 1,
-                        totalVotes: updateInvitationSurvey.totalVotes,
-                    };
-                }
-            }
-
             // Update invitation data.
             const lowerCaseCode = code.toLowerCase();
             await axios.put(`${env.apiUrl}/gender-reveal/invitations/updateAttendance/${lowerCaseCode}`, finalInvitationData);
-
-            console.log("UPDATE SURVEY ---> ", updateInvitationSurvey);
-
-            // Update survey data.
-            await axios.put(`${env.apiUrl}/invitation-survey`, { data: updateInvitationSurvey });
-            setUpdateInvitationSurvey(updateInvitationSurvey);
 
             goToNextStep();
         } catch (error) {
@@ -166,7 +130,7 @@ const GenderReveal: React.FC = () => {
             ) : currentStep === 5 ? (
                 <div className="mainContainer">
                     <motion.div key="step5" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 3 }}>
-                        <Step5FinalDetails updateInvitationData={updateInvitationData} updateInvitationSurveyData={updateInvitationSurvey} />
+                        <Step5FinalDetails updateInvitationData={updateInvitationData} />
                     </motion.div>
                 </div>
             ) : (
