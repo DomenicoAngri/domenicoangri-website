@@ -39,7 +39,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
             setIsLoading(true);
             console.log("loading = true");
 
-            const response = await axios.get(`${env.apiUrl}/invitations/`, {
+            const response = await axios.get(`${env.apiUrl}/invitations?pagination[limit]=-1&fields[0]=gender`, {
                 headers: {
                     "Cache-Control": "no-cache, no-store, must-revalidate",
                     Pragma: "no-cache",
