@@ -22,7 +22,6 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
     const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     useEffect(() => {
-        console.log("-- use effect step 5 inizio --");
         handleSurveyResult();
 
         // Deactivate confetti animation after 5 seconds.
@@ -35,11 +34,9 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
 
     const handleSurveyResult = async (): Promise<void> => {
         try {
-            console.log("sto in handle survey");
             setIsLoading(true);
-            console.log("loading = true");
 
-            const response = await axios.get(`${env.apiUrl}/invitations?pagination[limit]=-1&fields[0]=gender`, {
+            const response = await axios.get(`${env.apiUrl}/invitations?pagination[limit]=100&fields[0]=gender`, {
                 headers: {
                     "Cache-Control": "no-cache, no-store, must-revalidate",
                     Pragma: "no-cache",
@@ -48,15 +45,10 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
             });
 
             const guestList: InvitationDataProps[] = response.data.data;
-            console.log("GUEST LIST --> ", guestList);
 
             const maleVotes = countGender(guestList, "M");
             const femaleVotes = countGender(guestList, "F");
             const totalVotes = guestList.filter((guest) => guest.gender !== null && guest.gender !== undefined).length;
-
-            console.log("male votes --> ", maleVotes);
-            console.log("female votes --> ", femaleVotes);
-            console.log("total votes --> ", totalVotes);
 
             setSurveyResults({
                 boyPercentage: Math.ceil((maleVotes / totalVotes) * 100),
@@ -123,7 +115,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
             ) : fatalError ? (
                 <FatalError codeError={fatalError.status?.toString()} title={fatalError.code} description={fatalError.message} />
             ) : (
-                <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto pt-12 pb-12">
+                <div className="flex flex-col items-center justify-center text-center max-w-md mx-auto pt-16 pb-16">
                     {updateInvitationData?.attendance === true ? (
                         <>{showConfetti && <Confetti width={width} height={height} recycle={false} />}</>
                     ) : null}
