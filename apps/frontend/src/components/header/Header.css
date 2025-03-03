@@ -1,6 +1,6 @@
 header {
     @apply fixed top-0 left-0 w-full z-10 bg-opacity-50 backdrop-blur-sm;
-    /* TODO: da vedere se usare, Usa la variabile CSS personalizzata definita nel file index.css */
+    /* TODO: check if in the future this custom CSS variables will useful, defined into main CSS file: index.css. */
     /* padding-top: var(--header-padding-height);
     padding-bottom: var(--header-padding-height); */
 }

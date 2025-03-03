@@ -1,6 +1,6 @@
 {
     "name": "domenico-angri-personal-website",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "type": "module",
     "description": "Domenico Angri personal website.",
     "packageManager": "yarn@1.22.22",

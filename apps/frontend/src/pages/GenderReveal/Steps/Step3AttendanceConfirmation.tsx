@@ -75,7 +75,9 @@ const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = 
             <div className="flex flex-col items-center justify-center w-full max-w-md">
                 <div className="w-full mb-8">
                     <div className="mb-6">
-                        <label htmlFor="guests">Numero di persone adulte (te compreso)</label>
+                        <label htmlFor="guests">
+                            Numero di persone adulte, te compreso. Se pensi di non riuscire ad essere presente, seleziona 0.
+                        </label>
                     </div>
 
                     <motion.div animate={error ? shakeAnimation : {}} className="flex items-center justify-center w-full">

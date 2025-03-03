@@ -35,7 +35,7 @@
     /* Apply all screen height, primary background color and text style. */
     body {
         @apply min-h-screen bg-primary text-secondary text-xl;
-        /* TODO: da vedere se utile dopo, questa variabile CSS personalizzata serve a dare un'altezza fissa all'header da utilizzare anche in altri file CSS.  */
+        /* TODO: check if in the future this custom CSS variables will useful, defined into main CSS file: index.css. */
         /* --header-padding-height: 1.5rem; */
     }
 
@@ -81,10 +81,9 @@
         @apply mb-3 text-xl;
     }
 
-    /* TODO - SPAN - Inherit the text style. */
-    /* span {
+    span {
         @apply text-inherit;
-    } */
+    }
 
     /* 
         - Adds a left border for emphasis.

@@ -17,15 +17,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLanguage } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../../components/Loader/Loader";
 
-// TODO: aggiustare tutta la homepage.
-// TODO: inserire animazioni.
-// TODO: modificare la foto iniziale con react e farla a cerchio.
-// TODO: mettere tutto sotto l'header.
-// TODO: Modificare l'header.
-// TODO: Mettere i bordi a tutta l'app per non fare azzeccare le scritte al bordo.
-// TODO: Capire cosa fare col marked se non ritorna un valore (non si può mettere stringa vuota nel dangerouslySetInnerHTML).
-// TODO: Capire cosa fare con i campi qualora vuoti (tipo title e footer).
-// TODO: capire come fare per la lingua inglese o italiano quando avviene errore oppure pagina non trovata.
+// TODO: test initial personal photo and design it in a circle.
+// TODO: check what to do with empty fields.
+// TODO: set language state into local storage, if will first visit in the website, define a default language.
 
 const Homepage = () => {
     // Get the current site language from global state.
