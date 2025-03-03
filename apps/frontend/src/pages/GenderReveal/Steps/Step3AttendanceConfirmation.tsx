@@ -81,7 +81,7 @@ const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = 
                     <motion.div animate={error ? shakeAnimation : {}} className="flex items-center justify-center w-full">
                         <button
                             onClick={decrementGuestCount}
-                            className="h-10 w-10 flex items-center justify-center bg-blue-400 hover:bg-blue-500 text-white rounded-l-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            className="h-12 w-10 flex items-center justify-center bg-blue-400 hover:bg-blue-500 text-white rounded-l-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
                             aria-label="Decrease"
                         >
                             <FontAwesomeIcon icon={faMinus} />
@@ -89,14 +89,14 @@ const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = 
 
                         <div
                             id="guests"
-                            className="h-10 flex items-center justify-center px-4 border-t-2 border-b-2 border-gray-300 w-28 text-center text-lg"
+                            className="h-12 flex items-center justify-center px-4 border-t-2 border-b-2 border-gray-300 w-28 text-center text-lg"
                         >
                             {guestCount}
                         </div>
 
                         <button
                             onClick={incrementGuestCount}
-                            className="h-10 w-10 flex items-center justify-center bg-blue-400 hover:bg-blue-500 text-white rounded-r-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                            className="h-12 w-10 flex items-center justify-center bg-blue-400 hover:bg-blue-500 text-white rounded-r-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
                             aria-label="Increase"
                         >
                             <FontAwesomeIcon icon={faPlus} />
