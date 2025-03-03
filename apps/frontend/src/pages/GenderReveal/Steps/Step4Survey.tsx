@@ -52,7 +52,7 @@ const Step4Survey: React.FC<Step4SurveyProps> = ({ updateInvitationData, goToPre
         >
             <div className="flex flex-col items-center justify-center w-full max-w-md">
                 <div className="w-full mb-6">
-                    <div className="mb-4">
+                    <div className="mb-6">
                         {updateInvitationData?.attendance ? (
                             <div>Bene, grazie per la conferma!</div>
                         ) : (

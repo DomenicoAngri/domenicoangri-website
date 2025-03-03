@@ -124,7 +124,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="mb-5"
+                        className="mb-6"
                     >
                         {updateInvitationData?.attendance === false ? (
                             <div>
@@ -147,9 +147,9 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3, duration: 0.5 }}
-                                className="rounded-2xl shadow-2xl w-full mb-4 p-2"
+                                className="rounded-2xl shadow-2xl w-full mb-6 p-2"
                             >
-                                <h2 className="mb-4">Dettagli dell'evento</h2>
+                                <h2 className="mb-6">Dettagli dell'evento</h2>
                                 <div>
                                     <strong>Quando: </strong>
                                     <span className="italic">Sabato 8 marzo.</span>
@@ -158,7 +158,7 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                                     <strong>A che ora: </strong>
                                     <span className="italic">dalle 13:00.</span>
                                 </div>
-                                <div className="mb-4">
+                                <div className="mb-6">
                                     <strong>Dove: </strong>
                                     <span className="italic">al "Laghetto", Via Boscherona, 20900, (Monza).</span>
                                 </div>
@@ -179,23 +179,23 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3, duration: 0.5 }}
-                                className="rounded-2xl shadow-2xl w-full mb-4 p-2"
+                                className="rounded-2xl shadow-2xl w-full mb-6 p-2"
                             >
                                 <div>
-                                    <h2 className="defaultMarginBottom">Note 📝</h2>
-                                    <div className="defaultMarginBottom">
+                                    <h2 className="mb-6">Note 📝</h2>
+                                    <div className="mb-6">
                                         Ti aspettiamo per condividere un momento speciale, gustando qualcosa insieme prima di scoprire il sesso della
                                         piccola creatura in arrivo!
                                     </div>
-                                    <div className="defaultMarginBottom">
+                                    <div className="mb-6">
                                         L'evento si terrà all'aperto, in un luogo adatto sia ai bambini che agli amici a quattro zampe 🐶, quindi
                                         sentiti libero di portarli con te!
                                     </div>
-                                    <div className="defaultMarginBottom">
+                                    <div className="mb-6">
                                         Speriamo in una giornata calda ☀️ e piacevole, ma potrebbe fare freschino, quindi porta con te un giubbino,
                                         giusto per sicurezza.
                                     </div>
-                                    <div className="defaultMarginBottom">Per qualsiasi informazione, contattaci! 😁</div>
+                                    <div className="mb-6">Per qualsiasi informazione, contattaci! 😁</div>
                                 </div>
                             </motion.div>
                         </>
@@ -205,12 +205,12 @@ const Step5FinalDetails: React.FC<Step5FinalDetailsProps> = ({ updateInvitationD
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6, duration: 0.5 }}
-                        className="rounded-2xl shadow-2xl w-full mb-4 p-2"
+                        className="rounded-2xl shadow-2xl w-full mb-6 p-2"
                     >
                         <h2 className="defaultMarginBottom">Cosa pensano gli invitati?</h2>
 
                         <>
-                            <div className="defaultMarginBottom">Finora, ecco come hanno votato i nostri amici e parenti:</div>
+                            <div className="mb-6">Finora, ecco come hanno votato i nostri amici e parenti:</div>
 
                             <div className="h-52">
                                 <ResponsiveContainer width="100%" height="100%">

@@ -73,8 +73,8 @@ const Step3AttendanceConfirmation: React.FC<Step3AttendanceConfirmationProps> = 
             }}
         >
             <div className="flex flex-col items-center justify-center w-full max-w-md">
-                <div className="w-full mb-6">
-                    <div className="mb-4">
+                <div className="w-full mb-8">
+                    <div className="mb-6">
                         <label htmlFor="guests">Numero di persone adulte (te compreso)</label>
                     </div>
 

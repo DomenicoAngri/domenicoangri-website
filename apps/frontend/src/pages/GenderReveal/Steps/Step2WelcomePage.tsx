@@ -7,9 +7,9 @@ import { Step2WelcomePageProps } from "../GenderReveal.types";
 const Step2WelcomePage: React.FC<Step2WelcomePageProps> = ({ invitationData, goToNextStep, goToPreviousStep }) => {
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="bodyContainer">
-            <h2 className="defaultMarginBottom">Ciao {invitationData?.invitationName || ""}!</h2>
-            <div className="defaultMarginBottom">Domenico & Laura sono felici di invitarti al loro gender reveal!</div>
-            <div className="mb-5">
+            <h2 className="mb-6">Ciao {invitationData?.invitationName || ""}!</h2>
+            <div className="mb-6">Domenico & Laura sono felici di invitarti al loro gender reveal!</div>
+            <div className="mb-8">
                 Per organizzare al meglio l'evento, ti chiediamo di farci sapere se potrai partecipare e se avrai ospiti con te.
             </div>
 
