@@ -38,6 +38,10 @@
       "type": "string",
       "maxLength": 1,
       "minLength": 1
+    },
+    "nameAndSurname": {
+      "type": "string",
+      "required": true
     }
   }
 }

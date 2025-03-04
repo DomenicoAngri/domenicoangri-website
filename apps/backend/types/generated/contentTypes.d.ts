@@ -461,6 +461,7 @@ export interface ApiInvitationInvitation extends Struct.CollectionTypeSchema {
             }>;
         locale: Schema.Attribute.String & Schema.Attribute.Private;
         localizations: Schema.Attribute.Relation<"oneToMany", "api::invitation.invitation"> & Schema.Attribute.Private;
+        nameAndSurname: Schema.Attribute.String & Schema.Attribute.Required;
         numberOfPeople: Schema.Attribute.Integer &
             Schema.Attribute.SetMinMax<
                 {
