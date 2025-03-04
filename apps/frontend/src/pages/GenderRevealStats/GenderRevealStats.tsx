@@ -125,9 +125,9 @@ const GenderRevealStats: React.FC = () => {
             <table className="w-full text-sm">
                 <thead>
                     <tr>
-                        <th className="py-3 px-4 text-left font-medium">Codice Invito</th>
-                        <th className="py-3 px-4 text-left font-medium">Nome e Cognome</th>
-                        <th className="py-3 px-4 text-right font-medium">Numero Persone</th>
+                        <th className="py-3 px-4 text-left font-extrabold">Codice Invito</th>
+                        <th className="py-3 px-4 text-left font-extrabold">Nome e Cognome</th>
+                        <th className="py-3 px-4 text-right font-extrabold">Numero Persone</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -160,8 +160,8 @@ const GenderRevealStats: React.FC = () => {
 
             <div className="flex justify-center mb-6">
                 <div className="rounded-lg shadow-2xl p-4 text-center w-full max-w-xs">
-                    <p className="text-3xl font-bold">{stats.totalPeople}</p>
-                    <p className="text-sm">Totale Persone</p>
+                    <p className="text-3xl font-extrabold">{stats.totalPeople}</p>
+                    <p className="text-sm font-extrabold">Totale Persone presenti</p>
                 </div>
             </div>
 
@@ -169,28 +169,22 @@ const GenderRevealStats: React.FC = () => {
                 <table className="w-full text-sm">
                     <thead>
                         <tr>
-                            <th className="py-3 px-4 text-left font-medium">Stato</th>
-                            <th className="py-3 px-4 text-right font-medium">Numero</th>
-                            <th className="py-3 px-4 text-right font-medium">Percentuale</th>
+                            <th className="py-3 px-4 text-left font-extrabold">Stato</th>
+                            <th className="py-3 px-4 text-right font-extrabold">Numero</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr className="border-t-1 border-white">
                             <td className="py-3 px-4">Presenti</td>
                             <td className="py-3 px-4 text-right">{stats.present}</td>
-                            <td className="py-3 px-4 text-right">{stats.totalPeople ? Math.round((stats.present / stats.totalPeople) * 100) : 0}%</td>
                         </tr>
                         <tr className="border-t-1 border-white">
                             <td className="py-3 px-4">Assenti</td>
                             <td className="py-3 px-4 text-right">{stats.absent}</td>
-                            <td className="py-3 px-4 text-right">{stats.totalPeople ? Math.round((stats.absent / stats.totalPeople) * 100) : 0}%</td>
                         </tr>
                         <tr className="border-t-1 border-white">
                             <td className="py-3 px-4">Non Risposto</td>
                             <td className="py-3 px-4 text-right">{stats.noResponse}</td>
-                            <td className="py-3 px-4 text-right">
-                                {stats.totalPeople ? Math.round((stats.noResponse / stats.totalPeople) * 100) : 0}%
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -201,11 +195,11 @@ const GenderRevealStats: React.FC = () => {
                 <table className="w-full text-sm">
                     <tbody>
                         <tr className="border-t-1 border-white">
-                            <td className="py-3 px-4">Maschio</td>
+                            <td className="py-3 px-4 font-extrabold">Maschio</td>
                             <td className="py-3 px-4 text-right">{stats.totalVotes ? Math.round((stats.maleVotes / stats.totalVotes) * 100) : 0}%</td>
                         </tr>
                         <tr className="border-t-1 border-white">
-                            <td className="py-3 px-4">Femmina</td>
+                            <td className="py-3 px-4 font-extrabold">Femmina</td>
                             <td className="py-3 px-4 text-right">
                                 {stats.totalPeople ? Math.round((stats.femaleVotes / stats.totalVotes) * 100) : 0}%
                             </td>

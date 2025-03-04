@@ -20,6 +20,15 @@ import "./GenderReveal.css";
 // TODO: Set all phrases const into consts file.
 // TODO: Resolve dependences with modules.
 // TODO: check all console.log and console.error.
+// TODO: add new error api handler to project.
+// TODO: add i18n to project.
+// TODO: set all consts gender reveal to i18n.
+// TODO: review all structure and logic of project, step by step 1...5.
+// TODO: dependabot error.
+// TODO: all new app versions.
+// TODO: problem scroll to step 5.
+// TODO: admin.mysite to go in my backend.
+// TODO: backend and frontend cache and fe versioning.
 
 const GenderReveal: React.FC = () => {
     const [code, setCode] = useState("");
